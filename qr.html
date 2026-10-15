@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>QR-код меню НОРМА</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D7263D;--red-d:#B01E31;--yellow:#FFC72C;--yellow-l:#FFF3CC;--brick:#8F4130;--brick-l:#F6E7E0;--ink:#2B1612;--paper:#FFFBF7;--line:#F0E1D9}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;padding:24px 16px 48px}
+.wrap{max-width:560px;margin:0 auto}
+h1{font-family:'Unbounded','Manrope',sans-serif;font-weight:800;font-size:clamp(22px,6vw,30px);color:var(--red);line-height:1.15}
+p.lead{margin:10px 0 22px;color:#6b5249;font-size:15px;line-height:1.5}
+label{display:block;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--brick);margin-bottom:8px}
+input{width:100%;font:inherit;font-size:16px;padding:15px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;outline:0;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(215,38,61,.12)}
+.err{min-height:20px;margin-top:8px;font-size:13.5px;color:var(--red-d);font-weight:700}
+.poster{margin:18px auto 0;display:block;width:100%;max-width:420px;height:auto;border-radius:22px;box-shadow:0 24px 50px -24px rgba(90,30,20,.55);animation:pop .6s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(12px)}}
+.btns{display:grid;gap:10px;margin-top:22px}
+button{font:inherit;font-weight:800;font-size:16px;border:0;border-radius:14px;padding:15px 18px;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s}
+button:active{transform:scale(.98)}
+.pri{background:var(--red);color:#fff;box-shadow:0 12px 22px -12px var(--red)}
+.pri:hover{background:var(--red-d)}
+.sec{background:var(--yellow);color:var(--brick)}
+.ter{background:var(--brick-l);color:var(--brick)}
+.hint{margin-top:18px;font-size:13.5px;color:#7a6259;line-height:1.5}
+@media print{
+  body{padding:0;background:#fff}
+  .wrap>*:not(.poster){display:none!important}
+  .poster{box-shadow:none;max-width:none;width:100%;border-radius:0;animation:none}
+  @page{margin:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>QR-код для меню НОРМА</h1>
+  <p class="lead">Вставте посилання на ваше меню — QR-код і постер створяться автоматично. Роздрукуйте та розмістіть на столах.</p>
+  <label for="u">Посилання на меню</label>
+  <input id="u" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://norma-menu.netlify.app">
+  <div class="err" id="err"></div>
+  <canvas id="c" class="poster" width="1200" height="1700" aria-label="Постер з QR-кодом"></canvas>
+  <div class="btns">
+    <button class="pri" id="dl1">Завантажити постер (PNG)</button>
+    <button class="sec" id="dl2">Завантажити лише QR (PNG)</button>
+    <button class="ter" id="pr">Друк</button>
+  </div>
+  <p class="hint">Перед друком перевірте QR камерою телефона. Якщо ви зміните адресу меню — створіть QR заново.</p>
+</div>
+
+<script>
+/* ====== мінімальний QR-генератор (байтовий режим, корекція M, версії 1–10) ====== */
+const QR = (() => {
+  const EC = {1:[10,[[1,16]]],2:[16,[[1,28]]],3:[26,[[1,44]]],4:[18,[[2,32]]],5:[24,[[2,43]]],6:[16,[[4,27]]],7:[18,[[4,31]]],8:[22,[[2,38],[2,39]]],9:[22,[[3,36],[2,37]]],10:[26,[[4,43],[1,44]]]};
+  const ALIGN = {1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  const EXP = new Array(512), LOG = new Array(256);
+  for (let i=0,x=1;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if (x&256) x^=0x11d; }
+  for (let i=255;i<512;i++) EXP[i]=EXP[i-255];
+  const mul = (a,b) => a&&b ? EXP[LOG[a]+LOG[b]] : 0;
+  function rsGen(n){ let g=[1]; for(let i=0;i<n;i++){ const ng=new Array(g.length+1).fill(0); for(let j=0;j<g.length;j++){ ng[j]^=g[j]; ng[j+1]^=mul(g[j],EXP[i]); } g=ng; } return g; }
+  function rsRem(data,n){ const g=rsGen(n), r=new Array(n).fill(0); for(const b of data){ const f=b^r.shift(); r.push(0); for(let i=0;i<n;i++) r[i]^=mul(g[i+1],f); } return r; }
+
+  function encode(text){
+    const bytes = Array.from(new TextEncoder().encode(text));
+    let v=0;
+    for (let k=1;k<=10;k++){
+      const cap = EC[k][1].reduce((s,[n,d])=>s+n*d,0);
+      const need = 4 + (k<10?8:16) + bytes.length*8;
+      if (need <= cap*8){ v=k; break; }
+    }
+    if (!v) return null;
+    const [ecLen, groups] = EC[v];
+    const dataCw = groups.reduce((s,[n,d])=>s+n*d,0);
+    const bits=[]; const put=(val,len)=>{ for(let i=len-1;i>=0;i--) bits.push((val>>>i)&1); };
+    put(4,4); put(bytes.length, v<10?8:16); bytes.forEach(b=>put(b,8));
+    put(0, Math.min(4, dataCw*8 - bits.length));
+    while (bits.length%8) bits.push(0);
+    for (let p=0xEC; bits.length<dataCw*8; p^=0xEC^0x11) put(p,8);
+    const cw=[]; for(let i=0;i<bits.length;i+=8){ let b=0; for(let j=0;j<8;j++) b=b<<1|bits[i+j]; cw.push(b); }
+    // блоки
+    const blocks=[]; let pos=0;
+    for (const [n,d] of groups) for(let i=0;i<n;i++){ const dat=cw.slice(pos,pos+d); pos+=d; blocks.push({dat, ec:rsRem(dat,ecLen)}); }
+    const out=[]; const maxD=Math.max(...blocks.map(b=>b.dat.length));
+    for(let i=0;i<maxD;i++) blocks.forEach(b=>{ if(i<b.dat.length) out.push(b.dat[i]); });
+    for(let i=0;i<ecLen;i++) blocks.forEach(b=>out.push(b.ec[i]));
+    const stream=[]; out.forEach(b=>put2(b)); function put2(b){ for(let i=7;i>=0;i--) stream.push((b>>i)&1); }
+
+    const size=17+4*v;
+    const mk=()=>Array.from({length:size},()=>new Array(size).fill(false));
+    const m=mk(), fn=mk();
+    const set=(x,y,val)=>{ if(x>=0&&y>=0&&x<size&&y<size){ m[y][x]=val; fn[y][x]=true; } };
+    for(let i=0;i<size;i++){ set(6,i,i%2===0); set(i,6,i%2===0); }
+    for(const [cx,cy] of [[3,3],[size-4,3],[3,size-4]])
+      for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){ const d=Math.max(Math.abs(dx),Math.abs(dy)); set(cx+dx,cy+dy,d!==2&&d!==4); }
+    const ap=ALIGN[v];
+    for(let i=0;i<ap.length;i++) for(let j=0;j<ap.length;j++){
+      if((i===0&&j===0)||(i===0&&j===ap.length-1)||(i===ap.length-1&&j===0)) continue;
+      for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++) set(ap[i]+dx,ap[j]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1);
+    }
+    // зарезервувати формат (значення запишемо пізніше)
+    const reserveFormat=()=>{ for(let i=0;i<9;i++){ fn[8][i]=true; fn[i][8]=true; } for(let i=0;i<8;i++){ fn[8][size-1-i]=true; fn[size-1-i][8]=true; } };
+    reserveFormat();
+    if(v>=7){
+      let rem=v; for(let i=0;i<12;i++) rem=(rem<<1)^((rem>>11)*0x1F25);
+      const vb=v<<12|rem;
+      for(let i=0;i<18;i++){ const bit=((vb>>i)&1)===1, a=size-11+i%3, b=Math.floor(i/3); set(a,b,bit); set(b,a,bit); }
+    }
+    // дані
+    let idx=0;
+    for(let right=size-1;right>=1;right-=2){
+      if(right===6) right=5;
+      for(let vert=0;vert<size;vert++) for(let j=0;j<2;j++){
+        const x=right-j, up=((right+1)&2)===0, y=up?size-1-vert:vert;
+        if(!fn[y][x] && idx<stream.length){ m[y][x]=stream[idx++]===1; }
+      }
+    }
+    const masks=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+    function withMask(k){
+      const g=m.map(r=>r.slice());
+      for(let y=0;y<size;y++) for(let x=0;x<size;x++) if(!fn[y][x] && masks[k](x,y)) g[y][x]=!g[y][x];
+      const data=0<<3|k; let rem=data; for(let i=0;i<10;i++) rem=(rem<<1)^((rem>>9)*0x537);
+      const bits=(data<<10|rem)^0x5412, bit=i=>((bits>>i)&1)===1;
+      for(let i=0;i<=5;i++) g[i][8]=bit(i);
+      g[7][8]=bit(6); g[8][8]=bit(7); g[8][7]=bit(8);
+      for(let i=9;i<15;i++) g[8][14-i]=bit(i);
+      for(let i=0;i<8;i++) g[8][size-1-i]=bit(i);
+      for(let i=8;i<15;i++) g[size-15+i][8]=bit(i);
+      g[size-8][8]=true;
+      return g;
+    }
+    function penalty(g){
+      let p=0;
+      const line=a=>{ let run=1; for(let i=1;i<=a.length;i++){ if(i<a.length&&a[i]===a[i-1]) run++; else { if(run>=5) p+=3+run-5; run=1; } }
+        const s=a.map(b=>b?1:0).join(''); for(const pat of ['10111010000','00001011101']){ let f=-1; while((f=s.indexOf(pat,f+1))>=0) p+=40; } };
+      for(let y=0;y<size;y++) line(g[y]);
+      for(let x=0;x<size;x++) line(g.map(r=>r[x]));
+      for(let y=0;y<size-1;y++) for(let x=0;x<size-1;x++){ const c=g[y][x]; if(c===g[y][x+1]&&c===g[y+1][x]&&c===g[y+1][x+1]) p+=3; }
+      let dark=0; g.forEach(r=>r.forEach(c=>{ if(c) dark++; }));
+      p+=Math.max(0,Math.ceil(Math.abs(dark*20-size*size*10)/(size*size))-1)*10;
+      return p;
+    }
+    let best=null,bp=1e9; for(let k=0;k<8;k++){ const g=withMask(k), pe=penalty(g); if(pe<bp){ bp=pe; best=g; } }
+    return best;
+  }
+  return {encode};
+})();
+
+/* ====== інтерфейс ====== */
+const $=s=>document.querySelector(s), canvas=$('#c'), ctx=canvas.getContext('2d');
+const INK='#2B1612';
+function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x,y,w,h,r) : ctx.rect(x,y,w,h); }
+
+function qrCanvas(grid, scale=16, quiet=4){
+  const n=grid.length, s=(n+quiet*2)*scale, c=document.createElement('canvas'); c.width=c.height=s;
+  const g=c.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,s,s); g.fillStyle=INK;
+  for(let y=0;y<n;y++) for(let x=0;x<n;x++) if(grid[y][x]) g.fillRect((x+quiet)*scale,(y+quiet)*scale,scale,scale);
+  return c;
+}
+
+let grid=null;
+function draw(){
+  const W=1200,H=1700;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#FFFBF7'; ctx.fillRect(0,0,W,H);
+  // верх
+  const gr=ctx.createLinearGradient(0,0,W,520); gr.addColorStop(0,'#D7263D'); gr.addColorStop(1,'#B01E31');
+  ctx.fillStyle=gr; ctx.fillRect(0,0,W,520);
+  ctx.fillStyle='#FFC72C'; ctx.beginPath(); ctx.arc(W-60,40,190,0,7); ctx.fill();
+  ctx.fillStyle='#8F4130'; ctx.beginPath(); ctx.arc(80,500,130,0,7); ctx.fill();
+  ctx.fillStyle='#FFFBF7'; ctx.beginPath(); ctx.moveTo(0,470); ctx.bezierCurveTo(300,560,600,380,900,460); ctx.bezierCurveTo(1050,500,1130,500,W,470); ctx.lineTo(W,540); ctx.lineTo(0,540); ctx.fill();
+  ctx.textAlign='center'; ctx.fillStyle='#fff';
+  ctx.font='800 190px Unbounded, "Arial Black", Arial, sans-serif'; ctx.fillText('НОРМА',W/2,300);
+  ctx.fillStyle='#FFC72C'; rr(W/2-300,330,600,16,8); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='700 46px Manrope, Arial, sans-serif'; ctx.fillText('К А Ф Е',W/2,410);
+  // картка з QR
+  const box=760, bx=(W-box)/2, by=620;
+  ctx.save(); ctx.shadowColor='rgba(90,30,20,.28)'; ctx.shadowBlur=60; ctx.shadowOffsetY=24;
+  ctx.fillStyle='#fff'; rr(bx-30,by-30,box+60,box+60,48); ctx.fill(); ctx.restore();
+  ctx.strokeStyle='#FFC72C'; ctx.lineWidth=10; rr(bx-30,by-30,box+60,box+60,48); ctx.stroke();
+  if(grid){ ctx.imageSmoothingEnabled=false; ctx.drawImage(qrCanvas(grid), bx, by, box, box); }
+  ctx.fillStyle='#D7263D'; ctx.font='800 70px Unbounded, "Arial Black", Arial, sans-serif'; ctx.fillText('СКАНУЙ — ОБИРАЙ',W/2,1520);
+  ctx.fillStyle='#8F4130'; ctx.font='700 36px Manrope, Arial, sans-serif'; ctx.fillText('Наведіть камеру телефона на код — відкриється меню',W/2,1590);
+  ctx.fillStyle='#FFC72C'; ctx.fillRect(0,H-26,W,26);
+  ctx.fillStyle='#D7263D'; for(let x=0;x<W;x+=96) ctx.fillRect(x+48,H-26,48,26);
+}
+
+function update(){
+  const u=$('#u').value.trim(), e=$('#err');
+  grid=null; e.textContent='';
+  if(u){
+    if(!/^https?:\/\/.+\..+/i.test(u)) e.textContent='Посилання має починатися з https://';
+    else { grid=QR.encode(u); if(!grid) e.textContent='Посилання задовге (максимум близько 210 символів).'; }
+  }
+  draw();
+  ['dl1','dl2','pr'].forEach(id=>$('#'+id).disabled=!grid);
+}
+function save(c,name){ c.toBlob(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); }); }
+$('#dl1').onclick=()=>save(canvas,'norma-menu-poster.png');
+$('#dl2').onclick=()=>save(qrCanvas(grid,24),'norma-menu-qr.png');
+$('#pr').onclick=()=>window.print();
+$('#u').addEventListener('input',update);
+
+if(/^https?:$/.test(location.protocol)) $('#u').value=new URL('./',location.href).href.replace(/\/$/,'');
+update();
+if(document.fonts&&document.fonts.ready) document.fonts.load('800 100px Unbounded').then(()=>document.fonts.ready).then(draw);
+</script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#D7263D">
+<title>НОРМА — меню кафе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#D7263D; --red-d:#B01E31;
+  --yellow:#FFC72C; --yellow-l:#FFF3CC;
+  --brick:#8F4130; --brick-l:#F6E7E0;
+  --ink:#2B1612; --muted:#8A6F66; --paper:#FFFBF7; --card:#fff; --line:#F0E1D9;
+  --r:18px; --nav-h:64px;
+  --font:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --display:'Unbounded','Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;background:linear-gradient(135deg,var(--red) 0%,var(--red-d) 100%);color:#fff;padding:clamp(40px,8vw,84px) 20px clamp(90px,12vw,130px);overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.12) 1.5px,transparent 1.6px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+.blob{position:absolute;border-radius:50%;z-index:-1;filter:blur(2px);animation:float 14s ease-in-out infinite}
+.blob.b1{width:260px;height:260px;background:var(--yellow);opacity:.9;right:-70px;top:-60px}
+.blob.b2{width:180px;height:180px;background:var(--brick);opacity:.85;left:-60px;bottom:30px;animation-delay:-5s}
+.blob.b3{width:90px;height:90px;border:10px solid var(--yellow);opacity:.8;right:18%;bottom:50px;animation-delay:-9s;background:transparent}
+@keyframes float{50%{transform:translate(18px,-22px) scale(1.06)}}
+.hero-in{max-width:1100px;margin:0 auto;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);padding:7px 14px;border-radius:99px;font-size:13px;font-weight:600;letter-spacing:.04em;animation:rise .8s both}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 0 var(--yellow);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(44px,12vw,112px);letter-spacing:.02em;line-height:1;margin:18px 0 10px;animation:rise .8s .08s both}
+h1 span{position:relative;display:inline-block}
+h1 span::after{content:"";position:absolute;left:2%;right:2%;bottom:-.08em;height:.12em;background:var(--yellow);border-radius:9px;transform-origin:left;animation:draw 1s .7s both cubic-bezier(.2,.8,.2,1)}
+@keyframes draw{from{transform:scaleX(0)}}
+.hero p.sub{font-size:clamp(15px,2.4vw,19px);opacity:.92;animation:rise .8s .16s both}
+.search{position:relative;max-width:520px;margin:30px auto 0;animation:rise .8s .24s both}
+.search input{width:100%;border:0;border-radius:99px;padding:16px 52px 16px 52px;font-size:16px;background:#fff;color:var(--ink);box-shadow:0 12px 30px -10px rgba(60,5,10,.5);outline:3px solid transparent;transition:outline-color .2s,transform .2s}
+.search input:focus{outline-color:var(--yellow);transform:translateY(-1px)}
+.search svg{position:absolute;left:19px;top:50%;translate:0 -50%;width:20px;height:20px;stroke:var(--brick);fill:none;stroke-width:2.2;stroke-linecap:round}
+.search button{position:absolute;right:10px;top:50%;translate:0 -50%;width:34px;height:34px;border:0;border-radius:50%;background:var(--brick-l);color:var(--brick);font-size:18px;line-height:1;cursor:pointer;display:none}
+.search.has button{display:block}
+.wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:clamp(40px,7vw,80px);display:block}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:30;background:rgba(255,251,247,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+.nav.stuck{box-shadow:0 8px 24px -14px rgba(90,30,20,.35)}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 16px;height:var(--nav-h)}
+.logo{font-family:var(--display);font-weight:800;color:var(--red);font-size:18px;letter-spacing:.04em;flex:none;display:none;text-decoration:none}
+.logo b{color:var(--yellow);text-shadow:0 0 0 var(--brick)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;scroll-snap-type:x proximity;padding:4px 2px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 24px),transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;scroll-snap-align:center;border:0;cursor:pointer;background:var(--brick-l);color:var(--brick);font-weight:700;font-size:14px;padding:9px 15px;border-radius:99px;white-space:nowrap;transition:background .25s,color .25s,transform .2s,box-shadow .25s}
+.chip:hover{transform:translateY(-1px)}
+.chip.on{background:var(--red);color:#fff;box-shadow:0 8px 16px -8px var(--red)}
+.chip:focus-visible,.top:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* ---------- MENU ---------- */
+main{max-width:1180px;margin:0 auto;padding:30px 16px 70px}
+.cat{scroll-margin-top:calc(var(--nav-h) + 14px);margin-bottom:54px}
+.cat-h{display:flex;align-items:center;gap:14px;margin-bottom:22px;position:relative;padding-bottom:16px}
+.cat-h::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:72px;border-radius:9px;background:var(--yellow);transition:width .8s .2s cubic-bezier(.2,.8,.2,1)}
+.cat.in .cat-h::after{width:min(100%,220px)}
+.ico{flex:none;width:58px;height:58px;border-radius:18px;background:var(--brick);display:grid;place-items:center;font-size:30px;box-shadow:0 10px 18px -10px var(--brick);transform:rotate(-6deg);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.cat:hover .ico{transform:rotate(4deg) scale(1.06)}
+.cat-h h2{font-family:var(--display);font-size:clamp(20px,4.4vw,30px);font-weight:800;line-height:1.15;color:var(--red)}
+.cnt{margin-left:auto;font-size:13px;font-weight:700;color:var(--brick);background:var(--yellow-l);padding:5px 12px;border-radius:99px;white-space:nowrap}
+.grp{margin:0 0 10px}
+.grp-t{display:flex;align-items:center;gap:12px;margin:22px 0 12px;color:var(--brick);font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.grp-t::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--brick),transparent);opacity:.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.item{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 14px 18px;overflow:hidden;
+  opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s;transition-delay:calc(var(--i,0)*35ms),calc(var(--i,0)*35ms),0s,0s}
+.item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--yellow);transition:width .25s,background .25s}
+.cat.in .item{opacity:1;transform:none}
+.cat.in .item:hover{transform:translateY(-3px);transition-delay:0s;box-shadow:0 14px 26px -16px rgba(143,65,48,.6);border-color:#e8c9bc}
+.item:hover::before{width:7px;background:var(--red)}
+.nm{font-weight:700;font-size:15.5px;line-height:1.3}
+.pt{display:block;margin-top:2px;font-size:13px;color:var(--muted);font-weight:500}
+.pr{flex:none;font-weight:800;font-size:17px;color:var(--red);background:var(--yellow-l);padding:7px 12px;border-radius:12px;white-space:nowrap;transition:background .25s,color .25s}
+.pr small{font-size:12px;font-weight:700;margin-left:2px}
+.item:hover .pr{background:var(--red);color:#fff}
+mark{background:var(--yellow);color:inherit;border-radius:4px;padding:0 2px}
+.empty{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
+.empty b{display:block;font-size:44px;margin-bottom:8px}
+.empty.show{display:block;animation:rise .5s both}
+
+footer{background:var(--brick);color:#fff;text-align:center;padding:38px 20px calc(38px + env(safe-area-inset-bottom));position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--yellow) 0 24px,var(--red) 24px 48px)}
+footer .f-logo{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:.06em}
+footer p{opacity:.85;font-size:14px;margin-top:6px}
+
+.top{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;width:52px;height:52px;border-radius:50%;border:0;background:var(--yellow);color:var(--brick);cursor:pointer;display:grid;place-items:center;box-shadow:0 12px 24px -8px rgba(90,30,20,.6);opacity:0;pointer-events:none;transform:translateY(20px) scale(.8);transition:.3s}
+.top.show{opacity:1;pointer-events:auto;transform:none}
+.top:hover{background:var(--red);color:#fff}
+.top svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .logo{display:block}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+}
+@media (max-width:520px){
+  :root{--nav-h:58px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .ico{width:50px;height:50px;font-size:26px;border-radius:15px}
+  .cnt{display:none}
+  .nm{font-size:15px}
+  main{padding-top:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .item{opacity:1;transform:none}
+}
+
+/* ---------- КОШИК ---------- */
+.side{display:flex;align-items:center;gap:10px;flex:none}
+.info{min-width:0}
+.qty{display:flex;align-items:center}
+.add{width:40px;height:40px;border:0;border-radius:50%;background:var(--yellow);color:var(--brick);font-size:24px;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s;box-shadow:0 8px 14px -8px var(--brick)}
+.add:hover{background:var(--red);color:#fff;transform:scale(1.08)}
+.add:active{transform:scale(.92)}
+.step{display:flex;align-items:center;background:var(--red);color:#fff;border-radius:99px;padding:3px;animation:pop .25s cubic-bezier(.3,1.6,.5,1)}
+.step button{width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:20px;font-weight:800;line-height:1;cursor:pointer;transition:background .2s}
+.step button:hover{background:rgba(255,255,255,.32)}
+.step b{min-width:30px;text-align:center;font-size:15px}
+@keyframes pop{from{transform:scale(.8);opacity:.4}}
+.add:focus-visible,.step button:focus-visible,.cartbar:focus-visible,.btn:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+.cartbar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:45;translate:-50% 0;width:min(560px,calc(100% - 24px));display:flex;align-items:center;gap:12px;border:0;cursor:pointer;background:var(--red);color:#fff;border-radius:20px;padding:12px 16px;box-shadow:0 18px 34px -12px rgba(176,30,49,.8);transform:translateY(140%);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.9,.3,1.15),opacity .3s,background .2s}
+.cartbar.show{transform:none;opacity:1;pointer-events:auto}
+.cartbar:hover{background:var(--red-d)}
+.cartbar.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.04)}}
+.cb-ic{position:relative;font-size:24px;line-height:1}
+.cb-ic i{position:absolute;top:-8px;right:-12px;min-width:20px;height:20px;border-radius:99px;background:var(--yellow);color:var(--brick);font:800 12px/20px var(--font);text-align:center;font-style:normal;padding:0 5px}
+.cb-t{font-weight:800;font-size:16px;flex:1;text-align:left;padding-left:6px}
+.cartbar b{font-size:17px;background:rgba(255,255,255,.18);padding:7px 13px;border-radius:12px}
+body.has-cart .top{bottom:calc(88px + env(safe-area-inset-bottom))}
+body.has-cart footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+
+.ov{position:fixed;inset:0;z-index:60;background:rgba(43,22,18,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:61;left:0;right:0;bottom:0;max-height:94vh;max-height:94dvh;background:var(--paper);border-radius:28px 28px 0 0;display:flex;flex-direction:column;transform:translateY(105%);visibility:hidden;transition:transform .45s cubic-bezier(.2,.85,.25,1),visibility 0s .45s;box-shadow:0 -20px 60px -20px rgba(43,22,18,.5)}
+.sheet.show{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,.85,.25,1)}
+.sh-h{padding:10px 18px 12px;border-bottom:1px solid var(--line);flex:none}
+.grab{width:44px;height:5px;border-radius:9px;background:#e6d3ca;margin:0 auto 10px}
+.sh-row{display:flex;align-items:center;gap:10px}
+.sh-row h3{font-family:var(--display);font-size:20px;font-weight:800;color:var(--red);flex:1}
+.x{width:38px;height:38px;border:0;border-radius:50%;background:var(--brick-l);color:var(--brick);font-size:22px;cursor:pointer;line-height:1}
+.steps{display:flex;gap:6px;margin-top:12px}
+.steps i{flex:1;height:5px;border-radius:9px;background:var(--line);transition:background .3s}
+.steps i.on{background:var(--red)}
+.steps i.cur{background:var(--yellow)}
+.sbody{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:8px 18px 18px;-webkit-overflow-scrolling:touch}
+.sfoot{flex:none;padding:12px 18px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff;border-radius:0}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-weight:700}
+.tot b{font-size:22px;color:var(--red);font-family:var(--display)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:800;font-size:16px;cursor:pointer;text-decoration:none;transition:transform .15s,background .2s,box-shadow .2s;margin-top:10px}
+.btn:first-child{margin-top:0}
+.btn:active{transform:scale(.98)}
+.btn.pri{background:var(--red);color:#fff;box-shadow:0 14px 24px -14px var(--red)}
+.btn.pri:hover{background:var(--red-d)}
+.btn.sec{background:var(--yellow);color:var(--brick)}
+.btn.ter{background:var(--brick-l);color:var(--brick)}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.ln{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);animation:rise .35s both}
+.ln-p{font-weight:800;min-width:62px;text-align:right}
+.free{margin:12px 0 4px;background:var(--yellow-l);border-radius:16px;padding:12px 14px;font-size:14px}
+.bar{height:8px;border-radius:9px;background:#fff;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--yellow),var(--red));border-radius:9px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.empty-c{text-align:center;padding:50px 10px}
+.empty-c b{font-size:54px;display:block;animation:float 4s ease-in-out infinite}
+.empty-c p{margin:8px 0 20px;color:var(--muted);font-weight:600}
+.sec-t{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin:20px 0 10px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
+.seg button,.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:11px 8px;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;transition:border-color .2s,background .2s,transform .15s}
+.seg button span{font-size:22px}
+.seg button.on,.opt.on{border-color:var(--red);background:#FFF0F1;color:var(--red-d)}
+.seg button:active,.opt:active{transform:scale(.97)}
+.opts{display:grid;gap:8px}
+.opt{flex-direction:row;justify-content:flex-start;padding:13px 14px;gap:12px}
+.opt .ic{font-size:22px}
+.opt .dot{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #dcc6bb;display:grid;place-items:center}
+.opt.on .dot{border-color:var(--red)}
+.opt.on .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--red)}
+.fld{margin-top:12px}
+.fld label{display:block;font-size:13px;font-weight:700;color:var(--brick);margin-bottom:6px}
+.fld input,.fld textarea{width:100%;font:inherit;font-size:16px;padding:14px 15px;border:2px solid var(--line);border-radius:14px;background:#fff;outline:0;transition:border-color .2s,box-shadow .2s;resize:vertical}
+.fld input:focus,.fld textarea:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(215,38,61,.12)}
+.fld.bad input{border-color:var(--red);background:#FFF6F6}
+.fld em{display:block;margin-top:5px;font-size:13px;font-style:normal;font-weight:700;color:var(--red-d)}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:10px}
+.note{margin-top:10px;font-size:13.5px;color:#7a6259;background:var(--brick-l);padding:10px 12px;border-radius:12px;line-height:1.45}
+.note.warn{background:#FFF0F1;color:var(--red-d);font-weight:700}
+.sum{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:6px 16px}
+.sum div{display:flex;justify-content:space-between;padding:9px 0;font-weight:600;font-size:15px}
+.sum div+div{border-top:1px dashed var(--line)}
+.sum .g{color:#2f8f4e}
+.sum .t{font-weight:800;font-size:17px}
+.done{text-align:center;padding-top:14px}
+.ok{width:84px;height:84px;margin:0 auto 12px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.ok svg{width:44px;height:44px;stroke:var(--brick);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:dash .6s .25s forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+.done h4{font-family:var(--display);font-size:20px;color:var(--red)}
+.done p{margin:8px 0 0;color:#6b5249;font-size:15px;line-height:1.5}
+.ocard{text-align:left;margin:20px 0 6px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-size:14.5px}
+.ocard .no{font-weight:800;color:var(--brick);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.ocard .li{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.ocard .li span:last-child{white-space:nowrap;font-weight:700}
+.ocard hr{border:0;border-top:1px dashed var(--line);margin:8px 0}
+.acts{margin-top:16px;text-align:left}
+.spin{display:inline-block;width:16px;height:16px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{rotate:360deg}}
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));z-index:80;translate:-50% 20px;background:var(--ink);color:#fff;padding:11px 18px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:.3s}
+.toast.show{opacity:1;translate:-50% 0}
+@media (min-width:900px){
+  .sheet{left:auto;top:0;right:0;bottom:0;width:480px;max-height:none;border-radius:28px 0 0 28px;transform:translateX(105%)}
+  .sheet.show{transform:none}
+  .grab{display:none}
+  .sh-h{padding-top:20px}
+}
+@media (max-width:380px){.item{padding:12px 12px 12px 14px}.side{gap:7px}.pr{font-size:15px;padding:6px 9px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  <div class="hero-in">
+    <span class="badge"><i></i>Кафе · Меню</span>
+    <h1><span>НОРМА</span></h1>
+    <p class="sub">Смачно, ситно і за душею — обирайте з нашого меню</p>
+    <label class="search" id="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Знайти страву…" autocomplete="off" aria-label="Пошук по меню">
+      <button type="button" id="clr" aria-label="Очистити">×</button>
+    </label>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#FFFBF7" d="M0 40c120 34 240 40 360 24S600 0 760 8s300 56 440 56 160-14 240-34v50H0z"/></svg>
+</header>
+
+<nav class="nav" id="nav" aria-label="Категорії меню">
+  <div class="nav-in">
+    <a class="logo" href="#top" id="logo">НОРМА</a>
+    <div class="chips" id="chips"></div>
+  </div>
+</nav>
+
+<main id="menu"></main>
+<div class="empty" id="empty"><b>🍽️</b>Нічого не знайдено. Спробуйте інший запит.</div>
+
+<footer>
+  <div class="f-logo">НОРМА</div>
+  <p>Усі ціни вказано в гривнях (₴). Смачного!</p>
+</footer>
+
+
+<button class="cartbar" id="bar" aria-label="Відкрити кошик"><span class="cb-ic">🛒<i id="bcnt">0</i></span><span class="cb-t">Мій кошик</span><b id="btot">0 ₴</b></button>
+<div class="ov" id="ov"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="stitle">
+  <div class="sh-h">
+    <div class="grab"></div>
+    <div class="sh-row"><h3 id="stitle">Ваш кошик</h3><button class="x" id="sx" aria-label="Закрити">×</button></div>
+    <div class="steps" id="steps"><i></i><i></i><i></i></div>
+  </div>
+  <div class="sbody" id="sbody"></div>
+  <div class="sfoot" id="sfoot"></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<button class="top" id="top" aria-label="Нагору"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<script>
+/* ============================================================
+   НАЛАШТУВАННЯ КАФЕ — змініть тут, більше нічого чіпати не треба
+   ============================================================ */
+const CONFIG = {
+  phone: '+380930725199',          // '+380XXXXXXXXX' — кнопка «Подзвонити» після замовлення
+  orderEndpoint: 'https://norma-orders.maravamadonna08.workers.dev',  // адреса Worker-а, напр. 'https://norma-orders.ВАШ.workers.dev' — замовлення йдуть у Telegram + статистика
+  telegram: '',       // запасний канал без сервера: username кафе в Telegram без @
+  whatsapp: '',       // запасний канал: '380XXXXXXXXX'
+  payment: {
+    mono: true,       // онлайн-оплата через monobank (потрібен orderEndpoint + MONO_TOKEN у Worker)
+    url: '',          // посилання на онлайн-оплату від банку/сервісу. Можна: {amount} {order}
+                      // напр. 'https://pay.example.com/xxxx?amount={amount}&comment={order}'
+    amountInKopecks: false // true, якщо сервіс чекає суму в копійках
+  },
+  delivery: { enabled: true, fee: 50, freeFrom: 500, min: 150 }, // ← приклад, виставте свої умови
+  pickup: true,       // самовивіз
+  dine: true          // замовлення до столика
+};
+
+/* [назва, порція, ціна]  */
+const MENU = [
+{id:"new",name:"Нове меню",emoji:"✨",groups:[
+ {t:"Бургери та сендвічі",i:[
+  ["Бургер Меню","",200],["Бургер Норма","",120],["Бургер подвійний Норма","",160],["Бургер Чікен Бум Норма","",140],
+  ["Шаурма Норма","",140],["Кебаб в лаваші","200 г",150],["Супер Сендвіч Норма","",100]]},
+ {t:"Для компанії та до пива",i:[
+  ["Вушка до пива","150 г",150],["Пивна дощечка","800 г",490],["Крильця Буфало","350 г",240],
+  ["Нагетси курячі","1 кг",500],["Нагетси курячі","360 г",180],["Нагетси Чікен Стар","300 г",180],
+  ["Кільця кальмара","200 г",230],["Кільця кальмара","400 г",250],["Сирні палички асорті","500 г",250],
+  ["Сулугуні хрумкий","170 г",100],["Смажений камамбер","230 г",190],["Камамбер сир у тісті","240 г",240],
+  ["Камамбер з фруктами","",190],["Картопля з беконом","400 г",110],["Картопля по-креольськи","500 г",130]]},
+ {t:"Гриль, стейки та гаряче",i:[
+  ["Ковбаски гриль","500 г",350],["Люля-кебаб Норма","1 кг",750],["Овочі гриль","500 г",180],
+  ["Лосось запечений","100 г",140],["Стейк лосося","1 порція",280],
+  ["Стейк телячий з овочами гриль","200/150 г",290],["Стейк телячий з лавашем","200 г",270],
+  ["Плов Норма","300 г",105],["Паста Болоньєз","250 г",150],["Паста з куркою та грибами","250 г",150],
+  ["Паста Карбонара","250 г",150],["Паста з морепродуктами","300 г",220],["Яйце пашот","",150]]},
+ {t:"Десерти",i:[
+  ["Бельгійські вафлі з морозивом","4 шт",100],["Бельгійські вафлі з сьомгою","",150],
+  ["Бельгійські вафлі","3 шт",75],["Бельгійські вафлі","6 шт",100],["Бельгійські вафлі","9 шт",125],
+  ["Сирник Норма","1 порція, 4 шт",100],["Торт Норма","",50]]}
+]},
+{id:"soups",name:"Перші страви",emoji:"🍲",groups:[{t:"",i:[
+  ["Бограч","400 г",120],["Борщ український","250 г",55],["Борщ український","400 г",100],
+  ["Солянка","250 г",55],["Солянка","400 г",100],["Суп грибний","400 г",60],
+  ["Суп з фрикадельками","250 г",40],["Суп з фрикадельками","400 г",75],
+  ["Суп Харчо","250 г",55],["Суп Харчо","400 г",100],
+  ["Окрошка","250 г",45],["Окрошка (телятина)","250 г",60],["Окрошка","400 г",100],
+  ["Каша молочна рисова","200 г",24],["Канун","250 г",20]]}]},
+{id:"meat",name:"М'ясні страви",emoji:"🍖",groups:[
+ {t:"Відбивні",i:[
+  ["Відбивна в горіхах","250 г",150],["Відбивна курка з ананасом","250 г",160],["Відбивна куряча","150 г",150],
+  ["Відбивна по-царськи (курка)","200 г",180],["Відбивна по-царськи (свинина)","200 г",180],
+  ["Відбивна свинина з ананасом","250 г",200],["Відбивна свинина","150 г",160],["Відбивна телятина","150 г",175]]},
+ {t:"Котлети та пальчики",i:[
+  ["Котлета курка–гриби з сиром","100 г",85],["Котлета куряча","100 г",65],["Котлета по-київськи","100 г",105],
+  ["Котлета свиняча","100 г",65],["Крученики курка, сир, чорнослив","200 г",160],
+  ["Пальчики свинина, сир/гриби","100 г",160],["Пальчики свинина, сир/чорнослив","100 г",160]]},
+ {t:"Печінка, піджарка, ребра",i:[
+  ["Печеня (жарке) зі свинини","100 г",70],["Печінка смажена з грибами","200 г",110],["Печінка смажена з грушею","250 г",110],
+  ["Печінка смажена з цибулею","200 г",90],["Піджарка з картопляним пюре","150/200 г",200],
+  ["Піджарка куряча","200 г",160],["Піджарка свиняча","200 г",160],
+  ["Ребро жарене під вишневим соусом","1 кг",700],["Ребро з овочами","1 кг",700],["Ребро смажене з гірчичним соусом","1 кг",700]]},
+ {t:"Стейки, шашлик, курка",i:[
+  ["Стейк курячий","200 г",180],["Стейк свинина","200 г",200],["Стейк телятина","200 г",220],
+  ["Шашлик зі свинини","100 г",95],["Шиштаук","350 г",230],["Шиштаук з картоплею фрі","500 г",250],
+  ["Курячі крильця смажені","1 кг",350],["Курячі стегна смажені","1 кг",380],
+  ["Телятина відварена","100 г",80],["Телятина з овочами","200 г",120],["Гриби смажені з цибулею","200 г",100],["Сосиски","100 г",80]]}
+]},
+{id:"fish",name:"Рибні страви",emoji:"🐟",groups:[
+ {t:"Гаряче",i:[
+  ["Короп смажений","100 г",95],["Морський окунь запечений","100 г",80],["Скумбрія запечена","100 г",70],
+  ["Стейк Кликача","100 г",95],["Товстолоб смажений","100 г",55],["Хек смажений","200 г",100],
+  ["Філе тілапії під соусом","100 г",50],["Морепродукти у вершковому соусі","300 г",300],["Щука фарширована","1 кг",750]]},
+ {t:"Холодне та солоне",i:[
+  ["Горбуша холодного копчення","100 г",95],["Оселедець солоний","100 г",55],["Скумбрія солона","100 г",80],
+  ["Скумбрія холодного копчення","100 г",80],["Форель слабосолена","100 г",300],["Сьомга слабосолена","100 г",300],
+  ["Риба в томатному соусі","100 г",60],["Риба заливна","100 г",60],["Риба під овочами","100 г",60],["Риба відварена","100 г",50]]}
+]},
+{id:"sides",name:"Гарніри та яйця",emoji:"🥔",groups:[
+ {t:"Гарніри",i:[
+  ["Гречка","200 г",45],["Макарони з маслом","200 г",45],
+  ["Картопля відварна з маслом","200 г",45],["Картопля молода","200 г",45],["Картопля оригінальна","200 г",45],
+  ["Картопля по-селянськи","200 г",55],["Картопля пюре","200 г",45],["Картопля фрі","200 г",55],
+  ["Картопля смажена з цибулею","250 г",50],["Картопля смажена з грибами","250 г",60],["Картопля смажена з м'ясом","250 г",100],
+  ["Жарке в горщику","350 г",125]]},
+ {t:"Омлети",i:[
+  ["Омлет натуральний","120 г",75],["Омлет з грибами","150 г",85],["Омлет з шинкою","150 г",85],
+  ["Омлет з куркою та сиром","150 г",95],["Омлет з шинкою та сиром","150 г",95]]},
+ {t:"Яєчня",i:[
+  ["Яєчня","150 г",45],["Яєчня з салом","",55],["Яєчня з шинкою","",80],["Яєчня з перепелиних яєць","",60]]}
+]},
+{id:"pizza",name:"Піца",emoji:"🍕",groups:[{t:"",i:[
+  ["Піца 4 Сири","",180],["Піца Верона","",150],["Піца Гавайська (курка, ананас)","",150],["Піца з куркою та грибами","",150],
+  ["Піца з морепродуктами","",200],["Піца Каприз","",150],["Піца Ковбаса з сиром","",150],["Піца Пепероні","",150],
+  ["Піца по-домашньому","",150],["Піца Фірмова","",150],["Піца Шинка з сиром","",150],["Піца «А-море-міо»","",180],
+  ["Піца «Асорті»","",160],["Піца «Вегетаріанська»","",160],["Піца «Люкс»","",160],["Чебурек","",80]]}]},
+{id:"dumplings",name:"Пельмені та млинці",emoji:"🥟",groups:[
+ {t:"Пельмені та вареники",i:[
+  ["Пельмені домашні","200 г",95],["Пельмені по-європейськи","200 г",120],["Вареники з картоплею","300 г",80],
+  ["Вареники з сиром","300 г",80],["Хінкалі","1 шт",50],["Хінкалі","4 шт",200],["Хінкалі з сиром","4 шт",200]]},
+ {t:"Млинці",i:[
+  ["Млинці","4 шт",60],["Млинці з джемом","2 шт",45],["Млинці з сиром","200 г",75],["Млинці з вишнею","200 г",95],
+  ["Млинці з м'ясом","200 г",95],["Млинці з куркою та грибами","200 г",95],["Млинці з ікрою","200 г",125],["Млинці з сьомгою","200 г",125]]}
+]},
+{id:"sandwich",name:"Бутерброди",emoji:"🥪",groups:[
+ {t:"Бутерброди",i:[
+  ["З сиром і маслом","20/30 г",35],["З ковбасою","20/30 г",50],["З шинкою","20/30 г",50],
+  ["З червоною рибою","",100],["З ікрою","20/10/2 г",120],
+  ["Гарячий з ковбасою та сиром","",70],["Гарячий з шинкою","",70],["Грінка Брускета","1 шт",5]]},
+ {t:"Хліб",i:[
+  ["Хліб білий","20 г",3],["Хліб чорний","40 г",3],["Чіабатта","1 шматок",5],["Хліб з маслом","20/30 г",15]]}
+]},
+{id:"cuts",name:"Нарізки",emoji:"🧀",groups:[{t:"",i:[
+  ["Буженина домашня","100 г",80],["Ковбаса домашня","100 г",80],["Ковбаса Київська","100 г",90],["Ковбаса с/к","100 г",90],
+  ["Балик с/к","100 г",140],["Бастурма","100 г",130],["Шинка","100 г",70],["Сало свіже","100 г",50],
+  ["Сир Брі","100 г",130],["Сир Дорблю","100 г",150],["Сир твердий","100 г",80]]}]},
+{id:"coffee",name:"Кава та чай",emoji:"☕",groups:[
+ {t:"Кава",i:[
+  ["Еспресо","110 мл",35],["Рістретто","",35],["Допіо","",40],["Американо","180 мл",40],["Американо з молоком","180 мл",45],
+  ["Еспресо з молоком","",45],["Капучино","180 мл",50],["Капучино","250 мл",55],["Флет Уайт","180 мл",60],["Флет Уайт","250 мл",65],["Лате","340 мл",70]]},
+ {t:"Чай",i:[
+  ["Чай заварний","200 г",30],["Чай заварний з лимоном","200 г",35],["Чай заварний у чайнику","",40],
+  ["Чай з медом і корицею","450 г",50],["Чай імбир-мед","",40],["Чай Квітка","",40],["Чай Листок","",25],
+  ["Чай Манго","",40],["Чай Обліпиха","",40],["Чай Синій","",30],["Чай Синій (заварник)","",40],["Чайна церемонія","",60]]},
+ {t:"Додатки",i:[["Мед","100 г",40],["Сироп до кави","25 г",10]]}
+]},
+{id:"shakes",name:"Молочні коктейлі",emoji:"🥤",groups:[{t:"",i:[
+  ["Коктейль з бананом та джемом","",70],["Коктейль з ківі та джемом","",70],
+  ["Коктейль молочний з джемом","400 мл",70],["Коктейль молочний з джемом","250 мл",70]]}]},
+{id:"icecream",name:"Морозиво",emoji:"🍦",groups:[{t:"",i:[
+  ["Морозиво пломбір","100 г",80],["Морозиво з джемом","",80],["Морозиво м'яке «Веселка»","150 г",100],
+  ["Морозиво з фруктами","200 г",100],["Морозиво ріжок","",60]]}]}
+];
+
+const $ = s => document.querySelector(s);
+const menu = $('#menu'), chips = $('#chips');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function render(q = ''){
+  const needle = q.trim().toLowerCase();
+  let html = '', total = 0;
+  const visible = [];
+  for (const c of MENU){
+    let cnt = 0, body = '';
+    for (const g of c.groups){
+      const items = g.i.filter(x => !needle || (x[0] + ' ' + x[1] + ' ' + g.t + ' ' + c.name).toLowerCase().includes(needle));
+      if (!items.length) continue;
+      cnt += items.length;
+      body += `<div class="grp">${g.t ? `<div class="grp-t">${esc(g.t)}</div>` : ''}<div class="grid">` +
+        items.map(([n,p,pr], k) => {
+          let name = esc(n);
+          if (needle) name = name.replace(new RegExp('(' + needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','ig'), '<mark>$1</mark>');
+          return `<div class="item" style="--i:${Math.min(k,8)}"><div class="info"><span class="nm">${name}</span>${p ? `<span class="pt">${esc(p)}</span>` : ''}</div><div class="side"><div class="pr">${pr}<small>₴</small></div><div class="qty" data-id="${esc(keyOf(n,p))}">${qtyHTML(keyOf(n,p))}</div></div></div>`;
+        }).join('') + `</div></div>`;
+    }
+    if (!cnt) continue;
+    total += cnt; visible.push(c);
+    html += `<section class="cat" id="${c.id}"><div class="cat-h"><div class="ico" aria-hidden="true">${c.emoji}</div><h2>${esc(c.name)}</h2><span class="cnt">${cnt} поз.</span></div>${body}</section>`;
+  }
+  menu.innerHTML = html;
+  $('#empty').classList.toggle('show', !total);
+  chips.innerHTML = visible.map(c => `<button class="chip" data-id="${c.id}">${c.emoji} ${esc(c.name)}</button>`).join('');
+  observe();
+}
+
+/* reveal on scroll */
+let io;
+function observe(){
+  io && io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px', threshold:.05});
+  document.querySelectorAll('.cat').forEach(s => io.observe(s));
+  spy();
+}
+
+/* scroll spy */
+function spy(){
+  const secs = [...document.querySelectorAll('.cat')];
+  const y = innerHeight * .3; let cur = secs[0];
+  for (const s of secs) if (s.getBoundingClientRect().top <= y + 60) cur = s;
+  document.querySelectorAll('.chip').forEach(b => {
+    const on = cur && b.dataset.id === cur.id;
+    if (on && !b.classList.contains('on')){
+      const box = chips.getBoundingClientRect(), r = b.getBoundingClientRect();
+      chips.scrollTo({left: chips.scrollLeft + r.left - box.left - box.width/2 + r.width/2, behavior:'smooth'});
+    }
+    b.classList.toggle('on', on);
+  });
+}
+let tick = false;
+addEventListener('scroll', () => {
+  if (tick) return; tick = true;
+  requestAnimationFrame(() => {
+    tick = false; spy();
+    $('#nav').classList.toggle('stuck', scrollY > innerHeight * .3);
+    $('#top').classList.toggle('show', scrollY > 700);
+  });
+}, {passive:true});
+
+chips.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  document.getElementById(b.dataset.id).scrollIntoView({behavior:'smooth'});
+});
+$('#top').onclick = $('#logo').onclick = e => { e.preventDefault(); scrollTo({top:0, behavior:'smooth'}); };
+
+/* search */
+const sb = $('#search'), qi = $('#q'); let t;
+qi.addEventListener('input', () => { sb.classList.toggle('has', !!qi.value); clearTimeout(t); t = setTimeout(() => render(qi.value), 150); });
+$('#clr').onclick = () => { qi.value=''; sb.classList.remove('has'); render(); qi.focus(); };
+
+/* ====== КОШИК, ОФОРМЛЕННЯ, ОПЛАТА ====== */
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem('norma_'+k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem('norma_'+k, JSON.stringify(v)); }catch(e){} }
+};
+const keyOf = (n,p) => n + '|' + p;
+const ITEMS = new Map();
+MENU.forEach(c => c.groups.forEach(g => g.i.forEach(([n,p,pr]) => ITEMS.set(keyOf(n,p), {n,p,pr}))));
+const D = CONFIG.delivery;
+
+let cart = {};
+{ const s = store.get('cart'); if (s && typeof s === 'object') for (const k in s) if (ITEMS.has(k) && s[k] > 0) cart[k] = Math.min(99, s[k] | 0); }
+let view = 'cart', errs = {}, LAST = null, sendState = 'idle';
+let F = Object.assign({mode:'delivery',name:'',phone:'',street:'',flat:'',table:'',when:'asap',time:'',pay:'cash',comment:''}, store.get('form') || {});
+
+const count = () => Object.values(cart).reduce((a,b) => a + b, 0);
+const subtotal = () => Object.entries(cart).reduce((s,[k,q]) => s + ITEMS.get(k).pr * q, 0);
+const modes = () => [D.enabled && ['delivery','🛵','Доставка'], CONFIG.pickup && ['pickup','🥡','Самовивіз'], CONFIG.dine && ['dine','🍽️','У кафе']].filter(Boolean);
+const payOpts = () => [['cash','💵','Готівкою'], ['card','💳','Карткою (термінал)'], (CONFIG.payment.mono && CONFIG.orderEndpoint || CONFIG.payment.url) && ['online','📲','Онлайн: картка, Apple Pay, Google Pay']].filter(Boolean);
+const MODE_NAME = {delivery:'Доставка', pickup:'Самовивіз', dine:'У кафе'};
+const PAY_NAME = {cash:'Готівкою', card:'Карткою (термінал)', online:'Онлайн'};
+function fixForm(){
+  if (!modes().some(m => m[0] === F.mode)) F.mode = modes()[0] ? modes()[0][0] : 'pickup';
+  if (!payOpts().some(m => m[0] === F.pay)) F.pay = 'cash';
+}
+function totals(){
+  const sub = subtotal();
+  const fee = F.mode === 'delivery' && !(D.freeFrom && sub >= D.freeFrom) ? D.fee : 0;
+  return {sub, fee, total: sub + fee};
+}
+function saveForm(){ store.set('form', {mode:F.mode, name:F.name, phone:F.phone, street:F.street, flat:F.flat, pay:F.pay}); }
+
+/* кнопка + / степер на картці */
+function qtyHTML(id){
+  const q = cart[id] || 0;
+  return q ? `<div class="step"><button data-a="dec" aria-label="Менше">−</button><b>${q}</b><button data-a="inc" aria-label="Більше">+</button></div>`
+           : `<button class="add" data-a="inc" aria-label="Додати в кошик">+</button>`;
+}
+function refreshQty(id){
+  document.querySelectorAll('.qty').forEach(el => { if (el.dataset.id === id) el.innerHTML = qtyHTML(id); });
+}
+function setQty(id, q){
+  q = Math.max(0, Math.min(99, q));
+  if (q) cart[id] = q; else delete cart[id];
+  store.set('cart', cart);
+  refreshQty(id); updateBar();
+  if ($('#sheet').classList.contains('show') && view === 'cart') renderSheet();
+}
+function updateBar(){
+  const n = count(), bar = $('#bar');
+  const was = bar.classList.contains('show');
+  $('#bcnt').textContent = n; $('#btot').textContent = subtotal() + ' ₴';
+  bar.classList.toggle('show', n > 0 && !$('#sheet').classList.contains('show'));
+  document.body.classList.toggle('has-cart', n > 0);
+  if (n > 0 && was){ bar.classList.remove('bump'); void bar.offsetWidth; bar.classList.add('bump'); }
+}
+
+/* ---- шторка ---- */
+const TITLES = {cart:'Ваш кошик', form:'Оформлення', done:'Замовлення'};
+let lastFocus = null;
+function openSheet(v){
+  view = v || 'cart'; fixForm(); lastFocus = document.activeElement;
+  $('#sheet').classList.add('show'); $('#ov').classList.add('show');
+  document.body.style.overflow = 'hidden'; updateBar(); renderSheet();
+  setTimeout(() => $('#sx').focus(), 300);
+}
+function closeSheet(){
+  $('#sheet').classList.remove('show'); $('#ov').classList.remove('show');
+  document.body.style.overflow = '';
+  if (view === 'done') view = 'cart';
+  updateBar(); lastFocus && lastFocus.focus && lastFocus.focus();
+}
+const fld = (name, label, o = {}) => `<div class="fld${errs[name] ? ' bad' : ''}"><label for="f-${name}">${label}</label><input id="f-${name}" data-f="${name}" type="${o.type||'text'}" ${o.im ? `inputmode="${o.im}"` : ''} autocomplete="${o.ac||'off'}" placeholder="${esc(o.ph||'')}" value="${esc(String(F[name]||''))}">${errs[name] ? `<em>${errs[name]}</em>` : ''}</div>`;
+
+function cartView(){
+  const ids = Object.keys(cart);
+  if (!ids.length) return {body:`<div class="empty-c"><b>🛒</b><p>Кошик порожній — оберіть щось смачненьке</p><button class="btn pri" data-go="close">До меню</button></div>`, foot:''};
+  const lines = ids.map(id => { const it = ITEMS.get(id), q = cart[id];
+    return `<div class="ln"><div class="info"><span class="nm">${esc(it.n)}</span>${it.p ? `<span class="pt">${esc(it.p)}</span>` : ''}</div><div class="qty" data-id="${esc(id)}">${qtyHTML(id)}</div><div class="ln-p">${it.pr * q} ₴</div></div>`; }).join('');
+  const sub = subtotal(); let free = '';
+  if (D.enabled && D.freeFrom){ const left = D.freeFrom - sub;
+    free = `<div class="free">${left > 0 ? `Ще <b>${left} ₴</b> до безкоштовної доставки` : '🎉 Доставка безкоштовна'}<div class="bar"><i style="width:${Math.min(100, sub / D.freeFrom * 100)}%"></i></div></div>`; }
+  return {body: lines + free, foot:`<div class="tot"><span>Страви</span><b>${sub} ₴</b></div><button class="btn pri" data-go="form">Оформити замовлення</button>`};
+}
+
+function formView(){
+  const t = totals();
+  const segMode = `<div class="seg">${modes().map(([k,ic,tt]) => `<button type="button" class="${F.mode===k?'on':''}" data-set="mode" data-v="${k}"><span>${ic}</span>${tt}</button>`).join('')}</div>`;
+  let where = '';
+  if (F.mode === 'delivery') where = `${fld('street','Вулиця та будинок',{ph:'вул. Соборна, 12',ac:'street-address'})}${fld('flat','Квартира, під\'їзд, поверх',{ph:'кв. 5, 2 під\'їзд'})}<div class="note">Доставка ${D.fee} ₴${D.freeFrom ? `, безкоштовно від ${D.freeFrom} ₴` : ''}${D.min ? `. Мінімальне замовлення — ${D.min} ₴` : ''}.</div>`;
+  else if (F.mode === 'pickup') where = `<div class="note">Заберіть замовлення в кафе — ми приготуємо його до вказаного часу.</div>`;
+  else where = fld('table','Номер столика',{ph:'напр. 7',im:'numeric'});
+  const when = `<div class="seg"><button type="button" class="${F.when==='asap'?'on':''}" data-set="when" data-v="asap"><span>⚡</span>Якнайшвидше</button><button type="button" class="${F.when==='time'?'on':''}" data-set="when" data-v="time"><span>🕒</span>На певний час</button></div>${F.when==='time' ? fld('time','Час',{type:'time'}) : ''}`;
+  const pay = `<div class="opts">${payOpts().map(([k,ic,tt]) => `<button type="button" class="opt ${F.pay===k?'on':''}" data-set="pay" data-v="${k}"><span class="ic">${ic}</span>${tt}<span class="dot"></span></button>`).join('')}</div>`;
+  const sum = `<div class="sum"><div><span>Страви (${count()})</span><span>${t.sub} ₴</span></div>${F.mode==='delivery' ? `<div class="${t.fee?'':'g'}"><span>Доставка</span><span>${t.fee ? t.fee + ' ₴' : 'безкоштовно'}</span></div>` : ''}<div class="t"><span>Разом</span><span>${t.total} ₴</span></div></div>${errs.min ? `<div class="note warn">${errs.min}</div>` : ''}`;
+  return {
+    body: `<div class="sec-t">Як отримаєте</div>${segMode}
+      <div class="sec-t">Контакти</div>${fld('name','Ім\'я',{ac:'name',ph:'Як до вас звертатись'})}${fld('phone','Телефон',{type:'tel',im:'tel',ac:'tel',ph:'0XX XXX XX XX'})}
+      <div class="sec-t">${F.mode==='dine' ? 'Столик' : F.mode==='delivery' ? 'Адреса' : 'Самовивіз'}</div>${where}
+      <div class="sec-t">Коли</div>${when}
+      <div class="sec-t">Оплата</div>${pay}
+      <div class="fld"><label for="f-comment">Коментар до замовлення</label><textarea id="f-comment" data-f="comment" rows="2" placeholder="Без цибулі, подзвоніть на під'їзді…">${esc(F.comment)}</textarea></div>${sum}`,
+    foot: `<button class="btn pri" data-go="submit" ${sendState==='sending'?'disabled':''}>Підтвердити · ${t.total} ₴</button><button class="btn ter" data-go="cart">← Назад до кошика</button>`
+  };
+}
+
+const payUrl = o => o.payUrl || CONFIG.payment.url.replace('{amount}', CONFIG.payment.amountInKopecks ? o.total * 100 : o.total).replace('{order}', encodeURIComponent('Замовлення ' + o.no));
+const hasChannel = () => CONFIG.orderEndpoint || CONFIG.telegram || CONFIG.whatsapp;
+function orderText(o){
+  const L = [`🧾 Замовлення №${o.no} — НОРМА`, `Тип: ${MODE_NAME[o.mode]}`, `Ім'я: ${o.name}`, `Тел: ${o.phone}`];
+  if (o.mode === 'delivery') L.push(`Адреса: ${o.street}${o.flat ? ', ' + o.flat : ''}`);
+  if (o.mode === 'dine') L.push(`Столик: ${o.table}`);
+  L.push(`Час: ${o.when === 'time' ? o.time : 'якнайшвидше'}`, `Оплата: ${PAY_NAME[o.pay]}`, '———');
+  o.items.forEach(i => L.push(`${i.qty}× ${i.name}${i.portion ? ' (' + i.portion + ')' : ''} — ${i.price * i.qty} ₴`));
+  L.push('———', `Страви: ${o.sub} ₴`);
+  if (o.mode === 'delivery') L.push(`Доставка: ${o.fee ? o.fee + ' ₴' : 'безкоштовно'}`);
+  L.push(`Разом: ${o.total} ₴`);
+  if (o.comment) L.push(`Коментар: ${o.comment}`);
+  return L.join('\n');
+}
+function doneView(){
+  const o = LAST;
+  const items = o.items.map(i => `<div class="li"><span>${i.qty}× ${esc(i.name)}${i.portion ? ` <small style="color:var(--muted)">${esc(i.portion)}</small>` : ''}</span><span>${i.price * i.qty} ₴</span></div>`).join('');
+  const sent = sendState === 'sent', sending = sendState === 'sending', failed = sendState === 'failed';
+  let head, lead;
+  if (sent){ head = 'Замовлення прийнято!'; lead = o.pay === 'online' ? 'Переходимо до оплати. Якщо не відкрилось — натисніть «Сплатити» нижче. Готувати почнемо після оплати.' : 'Ми вже отримали його і почали готувати. Дякуємо, що обрали НОРМУ!'; }
+  else if (sending){ head = 'Відправляємо…'; lead = 'Одну секунду.'; }
+  else if (failed){ head = 'Не вдалося відправити'; lead = 'Нічого страшного — надішліть замовлення нам вручну кнопками нижче.'; }
+  else { head = 'Майже готово!'; lead = 'Надішліть замовлення нам — оберіть зручний спосіб нижче.'; }
+  let acts = '';
+  if (o.pay === 'online' && (o.payUrl || CONFIG.payment.url)) acts += `<a class="btn pri" href="${esc(payUrl(o))}" target="_blank" rel="noopener">📲 Сплатити ${o.total} ₴ онлайн</a>`;
+  if (!sent && !sending){
+    if (CONFIG.orderEndpoint && failed) acts += `<button class="btn sec" data-go="retry">🔄 Спробувати ще раз</button>`;
+    const txt = encodeURIComponent(orderText(o));
+    if (CONFIG.telegram) acts += `<a class="btn ${acts?'ter':'pri'}" href="https://t.me/${esc(CONFIG.telegram)}?text=${txt}" target="_blank" rel="noopener">✈️ Надіслати в Telegram</a>`;
+    if (CONFIG.whatsapp) acts += `<a class="btn ter" href="https://wa.me/${esc(CONFIG.whatsapp)}?text=${txt}" target="_blank" rel="noopener">💬 Надіслати в WhatsApp</a>`;
+    acts += `<button class="btn ter" data-go="copy">📋 Скопіювати замовлення</button>`;
+  }
+  if (CONFIG.phone) acts += `<a class="btn ter" href="tel:${esc(CONFIG.phone)}">📞 Подзвонити в кафе</a>`;
+  const test = !hasChannel() ? `<div class="note">Тестовий режим: прийом замовлень ще не підключено — замовлення нікуди не надсилається.</div>` : '';
+  return {
+    body: `<div class="done"><div class="ok">${sending ? '<span class="spin" style="border-top-color:var(--brick);border-color:rgba(143,65,48,.25);width:30px;height:30px"></span>' : '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}</div><h4>${head}</h4><p>${lead}</p>
+      <div class="ocard"><div class="no"><span>№ ${o.no}</span><span>${MODE_NAME[o.mode]}</span></div>${items}<hr><div class="li"><span>Разом</span><span>${o.total} ₴</span></div></div>${test}<div class="acts">${acts}</div></div>`,
+    foot: `<button class="btn ter" data-go="close">Закрити</button>`
+  };
+}
+
+function renderSheet(){
+  const v = view === 'cart' ? cartView() : view === 'form' ? formView() : doneView();
+  $('#stitle').textContent = TITLES[view];
+  $('#sbody').innerHTML = v.body; $('#sfoot').innerHTML = v.foot; $('#sfoot').style.display = v.foot ? '' : 'none';
+  const idx = {cart:0, form:1, done:2}[view];
+  document.querySelectorAll('#steps i').forEach((e,i) => { e.className = i < idx ? 'on' : i === idx ? 'cur' : ''; });
+}
+
+function normPhone(s){
+  const d = String(s).replace(/\D/g, '');
+  if (/^380\d{9}$/.test(d)) return '+' + d;
+  if (/^0\d{9}$/.test(d)) return '+38' + d;
+  return null;
+}
+function validate(){
+  errs = {}; const {sub} = totals();
+  if (!F.name.trim()) errs.name = 'Вкажіть ім\'я';
+  if (!normPhone(F.phone)) errs.phone = 'Номер у форматі 0XX XXX XX XX';
+  if (F.mode === 'delivery'){ if (F.street.trim().length < 3) errs.street = 'Вкажіть вулицю та будинок'; if (D.min && sub < D.min) errs.min = `Мінімальна сума доставки — ${D.min} ₴. Додайте ще страв або оберіть самовивіз.`; }
+  if (F.mode === 'dine' && !String(F.table).trim()) errs.table = 'Вкажіть номер столика';
+  if (F.when === 'time' && !F.time) errs.time = 'Оберіть час';
+  return !Object.keys(errs).length;
+}
+function buildOrder(){
+  const t = totals(), d = new Date(), p = n => String(n).padStart(2, '0');
+  const o = {
+    no: p(d.getDate()) + p(d.getHours()) + p(d.getMinutes()) + '-' + Math.floor(10 + Math.random() * 90),
+    createdAt: d.toISOString(), mode: F.mode, name: F.name.trim(), phone: normPhone(F.phone),
+    street: F.mode === 'delivery' ? F.street.trim() : '', flat: F.mode === 'delivery' ? F.flat.trim() : '',
+    table: F.mode === 'dine' ? String(F.table).trim() : '', when: F.when, time: F.when === 'time' ? F.time : '',
+    pay: F.pay, comment: F.comment.trim(), sub: t.sub, fee: t.fee, total: t.total,
+    items: Object.entries(cart).map(([k,q]) => { const it = ITEMS.get(k); return {name: it.n, portion: it.p, qty: q, price: it.pr}; })
+  };
+  o.text = orderText(o);
+  return o;
+}
+async function sendToServer(o){
+  sendState = 'sending'; renderSheet();
+  try{
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 12000);
+    const r = await fetch(CONFIG.orderEndpoint.replace(/\/$/, '') + '/order', {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(o), signal: ctl.signal});
+    clearTimeout(tm); sendState = r.ok ? 'sent' : 'failed';
+    if (r.ok && o.pay === 'online'){ const j = await r.json().catch(() => ({})); if (j.payUrl){ o.payUrl = j.payUrl; setTimeout(() => { location.href = j.payUrl; }, 900); } else sendState = 'failed'; }
+  }catch(e){ sendState = 'failed'; }
+  if (view === 'done') renderSheet();
+}
+function submit(){
+  if (!validate()){ renderSheet(); const el = document.querySelector('.fld.bad input, .note.warn'); el && el.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+  saveForm(); LAST = buildOrder();
+  cart = {}; store.set('cart', cart);
+  document.querySelectorAll('.qty').forEach(el => { if (el.dataset.id) el.innerHTML = qtyHTML(el.dataset.id); });
+  view = 'done'; sendState = 'idle'; updateBar();
+  if (CONFIG.orderEndpoint) sendToServer(LAST); else renderSheet();
+  $('#sbody').scrollTop = 0;
+}
+function toast(t){ const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('show'), 1800); }
+function copyText(t){
+  const ok = () => toast('Скопійовано ✓');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, fallback); else fallback();
+  function fallback(){ const a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = 0; document.body.appendChild(a); a.select(); try{ document.execCommand('copy'); ok(); }catch(e){} a.remove(); }
+}
+
+document.addEventListener('click', e => {
+  const q = e.target.closest('.qty [data-a]');
+  if (q){ const id = q.closest('.qty').dataset.id; setQty(id, (cart[id] || 0) + (q.dataset.a === 'inc' ? 1 : -1)); return; }
+  const s = e.target.closest('[data-set]');
+  if (s){ F[s.dataset.set] = s.dataset.v; fixForm(); errs = {}; saveForm(); renderSheet(); return; }
+  const g = e.target.closest('[data-go]');
+  if (!g) return;
+  const a = g.dataset.go;
+  if (a === 'close') closeSheet();
+  else if (a === 'cart' || a === 'form'){ view = a; errs = {}; renderSheet(); $('#sbody').scrollTop = 0; }
+  else if (a === 'submit') submit();
+  else if (a === 'retry') sendToServer(LAST);
+  else if (a === 'copy') copyText(LAST.text);
+});
+document.addEventListener('input', e => { const f = e.target.dataset && e.target.dataset.f; if (!f) return; F[f] = e.target.value; if (errs[f]){ delete errs[f]; e.target.closest('.fld').classList.remove('bad'); const m = e.target.closest('.fld').querySelector('em'); m && m.remove(); } saveForm(); });
+$('#bar').onclick = () => openSheet('cart');
+$('#sx').onclick = $('#ov').onclick = closeSheet;
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#sheet').classList.contains('show')) closeSheet(); });
+fixForm(); updateBar();
+
+render();
+</script>
+</body>
+</html>

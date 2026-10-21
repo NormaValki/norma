@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4A1A12">
+<title>НОРМА — меню кафе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Cormorant+Garamond:ital,wght@1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brick:#4A1A12; --brick2:#5E241A; --mortar:#2E0F0A; --wine:#7A2A1C;
+  --gold:#E8B53C; --gold-l:#F6D77A; --gold-d:#B8862A; --gold-p:#FBEFC8;
+  --papyrus:#F7EEDC; --papyrus2:#EFE2C4; --card:#FFFAF0; --line:#E5D2A9;
+  --ink:#2B1610; --muted:#7E6457; --ok:#2f7d46;
+  --r:18px; --nav-h:64px;
+  --font:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --display:'Cormorant SC','Cormorant Garamond',Georgia,serif;
+  --bricks:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Crect width='120' height='60' fill='%232E0F0A'/%3E%3Crect x='2' y='2' width='56' height='26' rx='2' fill='%23592116'/%3E%3Crect x='62' y='2' width='56' height='26' rx='2' fill='%23612619'/%3E%3Crect x='-28' y='32' width='56' height='26' rx='2' fill='%23541f15'/%3E%3Crect x='32' y='32' width='56' height='26' rx='2' fill='%235d2318'/%3E%3Crect x='92' y='32' width='56' height='26' rx='2' fill='%23541f15'/%3E%3C/svg%3E");
+  --diamonds:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 2 62 32 32 62 2 32Z' fill='none' stroke='%23B8862A' stroke-opacity='.16'/%3E%3Cpath d='M32 24 40 32 32 40 24 32Z' fill='%23B8862A' fill-opacity='.07'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--papyrus) var(--diamonds);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,textarea{font:inherit;color:inherit}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;background:var(--bricks);background-size:120px 60px;color:var(--gold-l);padding:clamp(34px,7vw,64px) 16px 0;overflow:hidden;isolation:isolate;text-align:center}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 78%,rgba(232,181,60,.28),transparent 55%),linear-gradient(rgba(30,8,4,.35),rgba(30,8,4,.05) 40%,rgba(30,8,4,.25))}
+.glines{position:absolute;left:0;right:0;top:14px;height:12px;border-top:3px solid var(--gold);border-bottom:2px solid var(--gold-d);opacity:.9}
+.hero-in{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:10px;border:1.5px solid rgba(232,181,60,.6);background:rgba(46,15,10,.55);padding:7px 18px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--gold-l);animation:rise .8s both}
+.badge i{font-style:normal;color:var(--gold);font-size:16px;line-height:1}
+.cart-h{display:inline-block;position:relative;margin:20px 0 10px;padding:4px 40px 2px 34px;border-radius:999px;background:linear-gradient(180deg,#3a130d,#521d13);border:3px solid var(--gold);box-shadow:inset 0 0 0 4px var(--mortar),inset 0 0 0 6px var(--gold-d),0 14px 30px -12px rgba(0,0,0,.7),0 0 34px -8px rgba(232,181,60,.55);animation:rise .8s .08s both}
+.cart-h::after{content:"";position:absolute;right:16px;top:22%;bottom:22%;width:5px;border-radius:4px;background:linear-gradient(var(--gold-l),var(--gold-d))}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(46px,14vw,96px);letter-spacing:.08em;line-height:1.05;background:linear-gradient(180deg,#FFF0B8 0%,var(--gold-l) 35%,var(--gold) 60%,var(--gold-d) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(18px,4.6vw,24px);letter-spacing:.06em;color:var(--gold-p);animation:rise .8s .16s both}
+.search{position:relative;display:block;max-width:520px;margin:24px auto 0;animation:rise .8s .24s both}
+.search input{width:100%;border:2px solid var(--gold);border-radius:99px;padding:15px 52px;font-size:16px;background:var(--gold-p);color:var(--ink);box-shadow:0 12px 30px -10px rgba(0,0,0,.6);outline:3px solid transparent;transition:outline-color .2s,transform .2s}
+.search input::placeholder{color:#9b8571}
+.search input:focus{outline-color:rgba(246,215,122,.6);transform:translateY(-1px)}
+.search svg{position:absolute;left:19px;top:50%;translate:0 -50%;width:20px;height:20px;stroke:var(--wine);fill:none;stroke-width:2.4;stroke-linecap:round}
+.search button{position:absolute;right:10px;top:50%;translate:0 -50%;width:34px;height:34px;border:0;border-radius:50%;background:var(--papyrus2);color:var(--brick);font-size:18px;line-height:1;cursor:pointer;display:none}
+.search.has button{display:block}
+.sun{position:relative;width:clamp(210px,62vw,300px);aspect-ratio:1;margin:30px auto calc(clamp(210px,62vw,300px) * -.2);z-index:1}
+.rays{position:absolute;left:50%;top:50%;width:330%;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(246,215,122,.38) 0deg 3.2deg,transparent 3.2deg 15deg);-webkit-mask-image:radial-gradient(circle,#000 14%,rgba(0,0,0,.5) 34%,transparent 62%);mask-image:radial-gradient(circle,#000 14%,rgba(0,0,0,.5) 34%,transparent 62%);animation:spin 120s linear infinite;z-index:-1;pointer-events:none}
+@keyframes spin{to{rotate:360deg}}
+.medal{position:relative;width:100%;height:100%;border-radius:50%;padding:7px;background:linear-gradient(145deg,var(--gold-l),var(--gold-d) 60%,var(--gold));box-shadow:0 0 0 5px var(--mortar),0 0 0 7px rgba(232,181,60,.55),0 20px 50px -10px rgba(0,0,0,.7),0 0 60px rgba(232,181,60,.35);animation:rise 1s .3s both}
+.medal img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.wave{position:relative;z-index:3;display:block;width:calc(100% + 32px);margin-left:-16px;height:clamp(46px,8vw,84px);margin-top:-2px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:30;background:rgba(247,238,220,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:2px solid var(--line);transition:box-shadow .3s}
+.nav.stuck{box-shadow:0 8px 24px -14px rgba(74,26,18,.45);border-bottom-color:var(--gold)}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 16px;height:var(--nav-h)}
+.logo{font-family:var(--display);font-weight:700;color:var(--brick);font-size:24px;letter-spacing:.1em;flex:none;display:none;text-decoration:none}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;scroll-snap-type:x proximity;padding:4px 2px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 24px),transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;scroll-snap-align:center;border:1.5px solid rgba(184,134,42,.55);cursor:pointer;background:var(--gold-p);color:var(--brick);font-weight:700;font-size:14px;padding:8px 15px;border-radius:99px;white-space:nowrap;transition:background .25s,color .25s,transform .2s,box-shadow .25s,border-color .25s}
+.chip:hover{transform:translateY(-1px);border-color:var(--gold-d)}
+.chip.on{background:linear-gradient(135deg,var(--wine),var(--brick));color:var(--gold-l);border-color:var(--gold);box-shadow:0 8px 16px -8px var(--brick)}
+.chip.sec{background:var(--gold);color:var(--brick);border:2px solid var(--gold-d);font-weight:800}
+.chip.sec:hover{background:var(--gold-l)}
+.bq-banner{display:flex;align-items:center;gap:14px;width:100%;margin:0 0 34px;padding:16px 18px;border-radius:20px;border:2px solid var(--gold);background:var(--bricks);background-size:90px 45px;color:var(--gold-l);cursor:pointer;text-align:left;box-shadow:0 16px 30px -18px var(--brick),inset 0 0 0 3px var(--mortar);transition:transform .2s,box-shadow .2s}
+.bq-banner:hover{transform:translateY(-2px);box-shadow:0 20px 34px -18px var(--brick),inset 0 0 0 3px var(--mortar)}
+.bq-banner .e{font-size:34px;flex:none}
+.bq-banner b{display:block;font-family:var(--display);font-size:24px;line-height:1.1;color:var(--gold-l)}
+.bq-banner small{display:block;margin-top:3px;font-size:13.5px;color:var(--gold-p);opacity:.9}
+.bq-banner .ar{margin-left:auto;flex:none;width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--brick);display:grid;place-items:center;font-size:20px;font-weight:800}
+.bq-intro{margin:0 0 34px;padding:20px 18px;border-radius:22px;border:2px solid var(--gold);background:var(--bricks);background-size:90px 45px;color:var(--gold-p);text-align:center;box-shadow:inset 0 0 0 3px var(--mortar)}
+.bq-intro h2{font-family:var(--display);font-size:clamp(30px,8vw,42px);color:var(--gold-l);line-height:1.05}
+.bq-intro p{margin:8px auto 0;max-width:520px;font-size:14.5px;line-height:1.5}
+.bq-intro .steps3{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:14px}
+.bq-intro .steps3 span{padding:6px 12px;border-radius:99px;background:rgba(232,181,60,.16);border:1px solid rgba(232,181,60,.5);font-size:13px;font-weight:700;color:var(--gold-l)}
+.bq-intro .back{margin-top:14px;background:none;border:0;color:var(--gold);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.chip:focus-visible,.top:focus-visible,[data-open]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ---------- MENU ---------- */
+main{max-width:1180px;margin:0 auto;padding:30px 16px 70px}
+.cat{scroll-margin-top:calc(var(--nav-h) + 14px);margin-bottom:54px}
+.cat-h{display:flex;align-items:center;gap:14px;margin-bottom:18px;position:relative;padding-bottom:14px}
+.cat-h::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:72px;border-radius:9px;background:linear-gradient(90deg,var(--gold-d),var(--gold),transparent);transition:width .8s .2s cubic-bezier(.2,.8,.2,1)}
+.cat.in .cat-h::after{width:min(100%,260px)}
+.ico{flex:none;width:58px;height:58px;border-radius:16px;background:var(--bricks);background-size:60px 30px;border:2.5px solid var(--gold);display:grid;place-items:center;font-size:28px;box-shadow:0 10px 18px -10px var(--brick),inset 0 0 0 2px var(--mortar);transform:rotate(-6deg);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.cat:hover .ico{transform:rotate(4deg) scale(1.06)}
+.cat-h h2{font-family:var(--display);font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.05;color:var(--brick);letter-spacing:.02em}
+.cnt{margin-left:auto;font-size:13px;font-weight:700;color:var(--brick);background:var(--gold-p);border:1px solid var(--line);padding:5px 12px;border-radius:99px;white-space:nowrap}
+.cnote{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:-4px 0 14px;padding:11px 14px;border-radius:14px;background:var(--gold-p);border:1px dashed var(--gold-d);font-size:14px;font-weight:600;color:var(--brick)}
+.cnote.closed{background:#F5E1D6;border-color:var(--wine);color:var(--wine)}
+.cnote .btn{width:auto;margin:0 0 0 auto;padding:10px 16px;font-size:14px}
+.grp{margin:0 0 10px}
+.grp-t{display:flex;align-items:center;gap:12px;margin:22px 0 12px;color:var(--wine);font-size:12.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.grp-t::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-d),transparent);opacity:.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.item{position:relative;display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px 12px 18px;overflow:hidden;cursor:pointer;
+  opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s;transition-delay:calc(var(--i,0)*35ms),calc(var(--i,0)*35ms),0s,0s}
+.item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:repeating-linear-gradient(var(--gold) 0 8px,var(--gold-d) 8px 12px);transition:width .25s}
+.cat.in .item{opacity:1;transform:none}
+.cat.in .item:hover{transform:translateY(-3px);transition-delay:0s;box-shadow:0 14px 26px -16px rgba(74,26,18,.55);border-color:var(--gold)}
+.item:hover::before{width:8px}
+.thumb{flex:none;width:62px;height:62px;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:var(--papyrus2)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.info{min-width:0;flex:1}
+.nm{font-weight:700;font-size:15.5px;line-height:1.3}
+.bdg{display:inline-block;vertical-align:2px;margin-left:4px;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--wine);color:var(--gold-l)}
+.pt{display:block;margin-top:2px;font-size:13px;color:var(--muted);font-weight:500}
+.ds{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:3px;font-size:12.5px;color:var(--muted);line-height:1.35}
+.side{display:flex;align-items:center;gap:10px;flex:none}
+.pr{flex:none;font-weight:800;font-size:16px;color:var(--brick);background:linear-gradient(180deg,var(--gold-p),#F3DC9A);border:1px solid var(--gold-d);padding:6px 11px;border-radius:99px;white-space:nowrap;display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.pr s{font-size:11.5px;font-weight:700;color:var(--muted)}
+.pr small{font-size:12px;font-weight:700;margin-left:2px}
+.item.promo .pr{background:linear-gradient(180deg,#8a3020,var(--wine));color:var(--gold-l);border-color:var(--gold)}
+.item.promo .pr s{color:#e9c9a8}
+.item.off{opacity:.62}
+.item.off .thumb{filter:grayscale(1)}
+.cat.in .item.off{opacity:.62}
+.na{display:inline-block;font-size:12px;font-weight:800;color:var(--wine);background:#F3DED3;padding:7px 10px;border-radius:99px;white-space:nowrap}
+mark{background:var(--gold-l);color:inherit;border-radius:4px;padding:0 2px}
+.empty{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
+.empty b{display:block;font-size:44px;margin-bottom:8px}
+.empty.show{display:block;animation:rise .5s both}
+
+footer{background:var(--bricks);background-size:120px 60px;color:var(--gold-l);text-align:center;padding:42px 20px calc(38px + env(safe-area-inset-bottom));position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(90deg,var(--gold) 0 18px,var(--mortar) 18px 22px,var(--gold-d) 22px 40px,var(--mortar) 40px 44px)}
+footer .f-logo{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:.14em}
+footer .f-logo i{font-style:normal;color:var(--gold);margin:0 10px}
+footer p{opacity:.85;font-size:14px;margin-top:6px;color:var(--gold-p)}
+
+.top{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;width:52px;height:52px;border-radius:50%;border:2px solid var(--gold-d);background:var(--gold);color:var(--brick);cursor:pointer;display:grid;place-items:center;box-shadow:0 12px 24px -8px rgba(46,15,10,.6);opacity:0;pointer-events:none;transform:translateY(20px) scale(.8);transition:.3s}
+.top.show{opacity:1;pointer-events:auto;transform:none}
+.top:hover{background:var(--brick);color:var(--gold)}
+.top svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+@media (min-width:900px){
+  .logo{display:block}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+}
+@media (max-width:520px){
+  :root{--nav-h:58px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .ico{width:50px;height:50px;font-size:24px;border-radius:14px}
+  .cnt{display:none}
+  .nm{font-size:15px}
+  main{padding-top:18px}
+  .thumb{width:54px;height:54px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .item{opacity:1;transform:none}
+}
+
+/* ---------- КОШИК ---------- */
+.qty{display:flex;align-items:center}
+.add{width:40px;height:40px;border:1.5px solid var(--gold-d);border-radius:50%;background:var(--gold);color:var(--brick);font-size:24px;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s;box-shadow:0 8px 14px -8px var(--brick)}
+.add:hover{background:var(--brick);color:var(--gold);transform:scale(1.08)}
+.add:active{transform:scale(.92)}
+.step{display:flex;align-items:center;background:linear-gradient(135deg,var(--wine),var(--brick));color:var(--gold-l);border:1.5px solid var(--gold-d);border-radius:99px;padding:2px;animation:pop .25s cubic-bezier(.3,1.6,.5,1)}
+.step button{width:34px;height:34px;border:0;border-radius:50%;background:rgba(246,215,122,.16);color:var(--gold-l);font-size:20px;font-weight:800;line-height:1;cursor:pointer;transition:background .2s}
+.step button:hover{background:rgba(246,215,122,.32)}
+.step b{min-width:30px;text-align:center;font-size:15px}
+@keyframes pop{from{transform:scale(.8);opacity:.4}}
+.add:focus-visible,.step button:focus-visible,.cartbar:focus-visible,.bqbar:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.cartbar,.bqbar{position:fixed;left:50%;z-index:45;translate:-50% 0;width:min(560px,calc(100% - 24px));display:flex;align-items:center;gap:12px;cursor:pointer;border-radius:20px;transform:translateY(160%);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.9,.3,1.15),opacity .3s,bottom .3s}
+.cartbar{bottom:calc(14px + env(safe-area-inset-bottom));background:linear-gradient(135deg,var(--wine),var(--brick));color:var(--gold-l);border:2px solid var(--gold);padding:12px 16px;box-shadow:0 18px 34px -12px rgba(46,15,10,.85)}
+.bqbar{bottom:calc(14px + env(safe-area-inset-bottom));background:var(--gold);color:var(--brick);border:2px solid var(--gold-d);padding:10px 16px;font-weight:800;box-shadow:0 14px 28px -12px rgba(46,15,10,.7)}
+body.has-cart .bqbar{bottom:calc(84px + env(safe-area-inset-bottom))}
+.cartbar.show,.bqbar.show{transform:none;opacity:1;pointer-events:auto}
+.cartbar.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.04)}}
+.cb-ic{position:relative;font-size:24px;line-height:1}
+.cb-ic i{position:absolute;top:-8px;right:-12px;min-width:20px;height:20px;border-radius:99px;background:var(--gold);color:var(--brick);font:800 12px/20px var(--font);text-align:center;font-style:normal;padding:0 5px}
+.cb-t{font-weight:800;font-size:16px;flex:1;text-align:left;padding-left:6px}
+.cartbar b{font-size:17px;background:rgba(246,215,122,.16);padding:7px 13px;border-radius:12px}
+.bqbar span{flex:1;text-align:left}
+.bqbar b{background:rgba(74,26,18,.12);padding:5px 11px;border-radius:10px}
+body.has-cart .top{bottom:calc(88px + env(safe-area-inset-bottom))}
+body.has-bq .top{bottom:calc(88px + env(safe-area-inset-bottom))}
+body.has-cart.has-bq .top{bottom:calc(150px + env(safe-area-inset-bottom))}
+body.has-cart footer,body.has-bq footer{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+body.has-cart.has-bq footer{padding-bottom:calc(160px + env(safe-area-inset-bottom))}
+
+.ov{position:fixed;inset:0;z-index:60;background:rgba(30,10,6,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:61;left:0;right:0;bottom:0;max-height:94vh;max-height:94dvh;background:var(--papyrus) var(--diamonds);border-radius:28px 28px 0 0;border-top:3px solid var(--gold);display:flex;flex-direction:column;transform:translateY(105%);visibility:hidden;transition:transform .45s cubic-bezier(.2,.85,.25,1),visibility 0s .45s;box-shadow:0 -20px 60px -20px rgba(30,10,6,.6)}
+.sheet.show{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,.85,.25,1)}
+.sh-h{padding:10px 18px 12px;border-bottom:1px solid var(--line);flex:none}
+.grab{width:44px;height:5px;border-radius:9px;background:var(--gold-d);opacity:.45;margin:0 auto 10px}
+.sh-row{display:flex;align-items:center;gap:10px}
+.sh-row h3{font-family:var(--display);font-size:24px;font-weight:700;color:var(--brick);flex:1;line-height:1.1}
+.x{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--gold-p);color:var(--brick);font-size:22px;cursor:pointer;line-height:1}
+.steps{display:flex;gap:6px;margin-top:12px}
+.steps.hide{display:none}
+.steps i{flex:1;height:5px;border-radius:9px;background:var(--line);transition:background .3s}
+.steps i.on{background:var(--wine)}
+.steps i.cur{background:var(--gold)}
+.sbody{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:8px 18px 18px;-webkit-overflow-scrolling:touch}
+.sfoot{flex:none;padding:12px 18px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--card)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-weight:700}
+.tot b{font-size:26px;color:var(--brick);font-family:var(--display)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:800;font-size:16px;cursor:pointer;text-decoration:none;transition:transform .15s,background .2s,box-shadow .2s,opacity .2s;margin-top:10px}
+.btn:first-child{margin-top:0}
+.btn:active{transform:scale(.98)}
+.btn.pri{background:linear-gradient(135deg,var(--wine),var(--brick));color:var(--gold-l);border:2px solid var(--gold);box-shadow:0 14px 24px -14px var(--brick)}
+.btn.pri:hover{filter:brightness(1.12)}
+.btn.sec{background:var(--gold);color:var(--brick);border:2px solid var(--gold-d)}
+.btn.ter{background:var(--gold-p);color:var(--brick);border:1px solid var(--line)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.ln{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);animation:rise .35s both}
+.ln-p{font-weight:800;min-width:62px;text-align:right}
+.free{margin:12px 0 4px;background:var(--gold-p);border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:14px}
+.bar{height:8px;border-radius:9px;background:#fff;margin-top:8px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-l),var(--gold),var(--wine));border-radius:9px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.empty-c{text-align:center;padding:50px 10px}
+.empty-c b{font-size:54px;display:block;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.empty-c p{margin:8px 0 20px;color:var(--muted);font-weight:600}
+.sec-t{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);margin:20px 0 10px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
+.seg button,.opt{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:11px 8px;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;transition:border-color .2s,background .2s,transform .15s}
+.seg button span{font-size:22px}
+.seg button.on,.opt.on{border-color:var(--gold-d);background:var(--gold-p);color:var(--brick);box-shadow:inset 0 0 0 1px var(--gold)}
+.seg button:active,.opt:active{transform:scale(.97)}
+.opts{display:grid;gap:8px}
+.opt{flex-direction:row;justify-content:flex-start;padding:13px 14px;gap:12px;text-align:left}
+.opt .ic{font-size:22px}
+.opt .dot{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #d8c39a;display:grid;place-items:center}
+.opt.on .dot{border-color:var(--wine)}
+.opt.on .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--wine)}
+.fld{margin-top:12px}
+.fld label{display:block;font-size:13px;font-weight:700;color:var(--wine);margin-bottom:6px}
+.fld input,.fld textarea{width:100%;font:inherit;font-size:16px;padding:14px 15px;border:2px solid var(--line);border-radius:14px;background:#fff;outline:0;transition:border-color .2s,box-shadow .2s;resize:vertical;min-height:52px}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold-d);box-shadow:0 0 0 4px rgba(232,181,60,.22)}
+.fld.bad input{border-color:var(--wine);background:#FFF4EF}
+.fld em{display:block;margin-top:5px;font-size:13px;font-style:normal;font-weight:700;color:var(--wine)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note{margin-top:10px;font-size:13.5px;color:#6f5649;background:var(--gold-p);border:1px solid var(--line);padding:10px 12px;border-radius:12px;line-height:1.45}
+.note.warn{background:#F7E2D8;border-color:#e2b8a6;color:var(--wine);font-weight:700}
+.sum{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 16px}
+.sum div{display:flex;justify-content:space-between;padding:9px 0;font-weight:600;font-size:15px}
+.sum div+div{border-top:1px dashed var(--line)}
+.sum .g{color:var(--ok)}
+.sum .t{font-weight:800;font-size:17px}
+.done{text-align:center;padding-top:14px}
+.ok{width:84px;height:84px;margin:0 auto 12px;border-radius:50%;background:var(--gold);border:3px solid var(--gold-d);box-shadow:0 0 0 5px var(--gold-p);display:grid;place-items:center;animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.ok svg{width:44px;height:44px;stroke:var(--brick);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:dash .6s .25s forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+.done h4{font-family:var(--display);font-size:26px;color:var(--brick)}
+.done p{margin:8px 0 0;color:#6b5249;font-size:15px;line-height:1.5}
+.ocard{text-align:left;margin:20px 0 6px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-size:14.5px}
+.ocard .no{font-weight:800;color:var(--brick);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.ocard .li{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.ocard .li span:last-child{white-space:nowrap;font-weight:700}
+.ocard hr{border:0;border-top:1px dashed var(--line);margin:8px 0}
+.acts{margin-top:16px;text-align:left}
+.spin{display:inline-block;width:16px;height:16px;border:3px solid rgba(246,215,122,.4);border-top-color:var(--gold-l);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{rotate:360deg}}
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));z-index:80;translate:-50% 20px;background:var(--mortar);color:var(--gold-l);border:1px solid var(--gold-d);padding:11px 18px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:.3s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;translate:-50% 0}
+/* картка товару */
+.iv{padding-top:8px}
+.iv-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px;border:3px solid var(--gold);background:var(--papyrus2)}
+.iv-ph{display:grid;place-items:center;width:100%;aspect-ratio:16/9;border-radius:20px;border:3px solid var(--gold);background:var(--bricks);background-size:90px 45px;font-size:64px}
+.iv h4{font-family:var(--display);font-size:28px;line-height:1.1;color:var(--brick);margin-top:14px}
+.iv .pt{font-size:14px}
+.iv .dsc{margin-top:10px;font-size:15px;line-height:1.55;color:#4d362d;white-space:pre-line}
+.iv-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.iv-row .pr{font-size:20px;padding:8px 16px}
+.iv-row .pr.promo{background:linear-gradient(180deg,#8a3020,var(--wine));color:var(--gold-l);border-color:var(--gold)}
+@media (min-width:900px){
+  .sheet{left:auto;top:0;right:0;bottom:0;width:480px;max-height:none;border-radius:28px 0 0 28px;border-top:0;border-left:3px solid var(--gold);transform:translateX(105%)}
+  .sheet.show{transform:none}
+  .grab{display:none}
+  .sh-h{padding-top:20px}
+}
+@media (max-width:380px){.item{padding:11px 10px 11px 14px}.side{gap:7px}.pr{font-size:15px;padding:5px 9px}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="glines" aria-hidden="true"></div>
+  <div class="hero-in">
+    <span class="badge"><i>☥</i>КАФЕ · МЕНЮ<i>☥</i></span>
+    <div class="cart-h"><h1>НОРМА</h1></div>
+    <p class="sub">Смак, гідний фараонів</p>
+    <label class="search" id="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Знайти страву…" autocomplete="off" aria-label="Пошук по меню">
+      <button type="button" id="clr" aria-label="Очистити">×</button>
+    </label>
+  </div>
+  <div class="sun" aria-hidden="true"><div class="rays"></div><div class="medal"><img id="ph" alt="" width="300" height="300"></div></div>
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#E8B53C" d="M0 34c120 34 240 40 360 24S600-6 760 2s300 56 440 56 160-14 240-34v56H0z"/><path fill="#F7EEDC" d="M0 44c120 34 240 40 360 24S600 4 760 12s300 56 440 56 160-14 240-34v46H0z"/></svg>
+</header>
+
+<nav class="nav" id="nav" aria-label="Категорії меню">
+  <div class="nav-in">
+    <a class="logo" href="#hero" id="logo">НОРМА</a>
+    <div class="chips" id="chips"></div>
+  </div>
+</nav>
+
+<main id="menu"></main>
+<div class="empty" id="empty"><b>🏺</b>Нічого не знайдено. Спробуйте інший запит.</div>
+
+<footer>
+  <div class="f-logo"><i>☥</i>НОРМА<i>☥</i></div>
+  <p>Усі ціни вказано в гривнях (₴). Смачного!</p>
+</footer>
+
+<button class="bqbar" id="bqbar" aria-label="Відкрити банкетне передзамовлення">🎉 <span>Банкет · передзамовлення</span><b id="bqtot">0 ₴</b></button>
+<button class="cartbar" id="bar" aria-label="Відкрити кошик"><span class="cb-ic">🛒<i id="bcnt">0</i></span><span class="cb-t">Мій кошик</span><b id="btot">0 ₴</b></button>
+<div class="ov" id="ov"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="stitle">
+  <div class="sh-h">
+    <div class="grab"></div>
+    <div class="sh-row"><h3 id="stitle">Ваш кошик</h3><button class="x" id="sx" aria-label="Закрити">×</button></div>
+    <div class="steps" id="steps"><i></i><i></i><i></i></div>
+  </div>
+  <div class="sbody" id="sbody"></div>
+  <div class="sfoot" id="sfoot"></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<button class="top" id="top" aria-label="Нагору"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<script>
+/* ============================================================
+   НАЛАШТУВАННЯ КАФЕ — змініть тут
+   Меню, ціни, фото, наявність, акції, доставку — тепер змінюєте в Telegram-боті (/menu).
+   ============================================================ */
+const CONFIG = {
+  phone: '+380930725199',          // кнопка «Подзвонити» після замовлення
+  orderEndpoint: 'https://norma-orders.maravamadonna08.workers.dev',  // адреса Worker-а: замовлення, меню, фото, банкет
+  menuFromServer: true, // брати меню з Worker-а (зміни з бота). Якщо Worker недоступний — показується вбудоване меню
+  telegram: '',       // запасний канал без сервера: username кафе в Telegram без @
+  whatsapp: '',       // запасний канал: '380XXXXXXXXX'
+  payment: {
+    mono: true,       // онлайн-оплата через monobank (потрібен orderEndpoint + MONO_TOKEN у Worker)
+    url: '',          // посилання на онлайн-оплату від банку/сервісу. Можна: {amount} {order}
+    amountInKopecks: false
+  },
+  // Запасні значення. Справжні береться з бота (⚙️ Налаштування), коли меню завантажене з Worker-а.
+  delivery: { enabled: true, fee: 0, freeFrom: 1000, min: 1000 }, // доставка лише від 1000 ₴, безкоштовна
+  banquet: { leadHours: 6, minGuests: 0 },                         // банкет — мінімум за 6 годин
+  pickup: true,       // самовивіз
+  dine: true          // замовлення до столика
+};
+
+/* Вбудоване меню (запасне). Генерується з бази при збірці — вручну не редагуйте. */
+const EMBED = {"cats":[{"id":"burgers","name":"Бургери та стріт-фуд","emoji":"🍔","type":"regular","from":"","to":"","sort":10},{"id":"beer","name":"Закуски до пива","emoji":"🍻","type":"regular","from":"","to":"","sort":20},{"id":"salads","name":"Салати","emoji":"🥗","type":"regular","from":"","to":"","sort":30},{"id":"cold","name":"Соління та овочеві нарізки","emoji":"🥒","type":"regular","from":"","to":"","sort":40},{"id":"cuts","name":"М'ясні та сирні нарізки","emoji":"🧀","type":"regular","from":"","to":"","sort":50},{"id":"soups","name":"Перші страви","emoji":"🍲","type":"regular","from":"","to":"","sort":60},{"id":"meat","name":"М'ясні страви","emoji":"🍖","type":"regular","from":"","to":"","sort":70},{"id":"grill","name":"Гриль, стейки, шашлик","emoji":"🔥","type":"regular","from":"","to":"","sort":80},{"id":"fish","name":"Рибні страви","emoji":"🐟","type":"regular","from":"","to":"","sort":90},{"id":"pasta","name":"Паста та плов","emoji":"🍝","type":"regular","from":"","to":"","sort":100},{"id":"pizza","name":"Піца","emoji":"🍕","type":"regular","from":"","to":"","sort":110},{"id":"dumplings","name":"Пельмені, вареники, млинці","emoji":"🥟","type":"regular","from":"","to":"","sort":120},{"id":"sides","name":"Гарніри","emoji":"🥔","type":"regular","from":"","to":"","sort":130},{"id":"eggs","name":"Омлети та яєчні","emoji":"🍳","type":"regular","from":"","to":"","sort":140},{"id":"fitness","name":"Фітнес меню","emoji":"💪","type":"regular","from":"","to":"","sort":150},{"id":"bread","name":"Бутерброди та хліб","emoji":"🥪","type":"regular","from":"","to":"","sort":160},{"id":"desserts","name":"Десерти","emoji":"🍰","type":"regular","from":"","to":"","sort":170},{"id":"icecream","name":"Морозиво","emoji":"🍦","type":"regular","from":"","to":"","sort":180},{"id":"shakes","name":"Молочні коктейлі","emoji":"🥤","type":"regular","from":"","to":"","sort":190},{"id":"coffee","name":"Кава та чай","emoji":"☕","type":"regular","from":"","to":"","sort":200},{"id":"bq-cold","name":"Холодні закуски","emoji":"🥩","type":"banquet","from":"","to":"","sort":1010},{"id":"bq-hot","name":"Гарячі страви","emoji":"🍖","type":"banquet","from":"","to":"","sort":1020},{"id":"bq-fish","name":"Рибні страви","emoji":"🐟","type":"banquet","from":"","to":"","sort":1030},{"id":"bq-kanun","name":"Канун та каша","emoji":"🥣","type":"banquet","from":"","to":"","sort":1040}],"items":[{"id":"burgers-1","cat":"burgers","grp":"Бургери","name":"Бургер Меню","portion":"","price":200,"old":null,"badge":"","desc":"","photo":"img/burgers-1.webp","on":1,"sort":10},{"id":"burgers-2","cat":"burgers","grp":"Бургери","name":"Бургер Норма","portion":"","price":120,"old":null,"badge":"","desc":"","photo":"img/burgers-2.webp","on":1,"sort":20},{"id":"burgers-3","cat":"burgers","grp":"Бургери","name":"Бургер подвійний Норма","portion":"","price":160,"old":null,"badge":"","desc":"","photo":"img/burgers-3.webp","on":1,"sort":30},{"id":"burgers-4","cat":"burgers","grp":"Бургери","name":"Бургер Чікен Бум Норма","portion":"","price":140,"old":null,"badge":"","desc":"","photo":"img/burgers-4.webp","on":1,"sort":40},{"id":"burgers-5","cat":"burgers","grp":"Лаваш, шаурма, сендвічі","name":"Шаурма Норма","portion":"","price":140,"old":null,"badge":"","desc":"","photo":"img/burgers-5.webp","on":1,"sort":50},{"id":"burgers-6","cat":"burgers","grp":"Лаваш, шаурма, сендвічі","name":"Кебаб в лаваші","portion":"200 г","price":150,"old":null,"badge":"","desc":"","photo":"img/burgers-6.webp","on":1,"sort":60},{"id":"burgers-7","cat":"burgers","grp":"Лаваш, шаурма, сендвічі","name":"Супер Сендвіч Норма","portion":"","price":100,"old":null,"badge":"","desc":"","photo":"img/burgers-7.webp","on":1,"sort":70},{"id":"burgers-8","cat":"burgers","grp":"Лаваш, шаурма, сендвічі","name":"Чебурек","portion":"","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"beer-1","cat":"beer","grp":"На компанію","name":"Пивна дощечка","portion":"800 г","price":490,"old":null,"badge":"","desc":"","photo":"img/beer-1.webp","on":1,"sort":10},{"id":"beer-2","cat":"beer","grp":"На компанію","name":"М'ясна дошка","portion":"","price":750,"old":null,"badge":"","desc":"","photo":"img/beer-2.webp","on":1,"sort":20},{"id":"beer-3","cat":"beer","grp":"На компанію","name":"Вушка до пива","portion":"150 г","price":150,"old":null,"badge":"","desc":"","photo":"img/beer-3.webp","on":1,"sort":30},{"id":"beer-4","cat":"beer","grp":"На компанію","name":"Крильця Буфало","portion":"350 г","price":240,"old":null,"badge":"","desc":"","photo":"img/beer-4.webp","on":1,"sort":40},{"id":"beer-5","cat":"beer","grp":"На компанію","name":"Нагетси курячі","portion":"360 г","price":180,"old":null,"badge":"","desc":"","photo":"img/beer-5.webp","on":1,"sort":50},{"id":"beer-6","cat":"beer","grp":"На компанію","name":"Нагетси курячі","portion":"1 кг","price":500,"old":null,"badge":"","desc":"","photo":"img/beer-6.webp","on":1,"sort":60},{"id":"beer-7","cat":"beer","grp":"На компанію","name":"Нагетси Чікен Стар","portion":"300 г","price":180,"old":null,"badge":"","desc":"","photo":"img/beer-7.webp","on":1,"sort":70},{"id":"beer-8","cat":"beer","grp":"На компанію","name":"Кільця кальмара","portion":"200 г","price":230,"old":null,"badge":"","desc":"","photo":"img/beer-8.webp","on":1,"sort":80},{"id":"beer-9","cat":"beer","grp":"На компанію","name":"Кільця кальмара","portion":"400 г","price":250,"old":null,"badge":"","desc":"","photo":"img/beer-9.webp","on":1,"sort":90},{"id":"beer-10","cat":"beer","grp":"На компанію","name":"Сирні палички асорті","portion":"500 г","price":250,"old":null,"badge":"","desc":"","photo":"img/beer-10.webp","on":1,"sort":100},{"id":"beer-11","cat":"beer","grp":"На компанію","name":"Сулугуні хрумкий","portion":"170 г","price":120,"old":null,"badge":"","desc":"","photo":"img/beer-11.webp","on":1,"sort":110},{"id":"beer-12","cat":"beer","grp":"Камамбер","name":"Смажений камамбер","portion":"230 г","price":190,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"beer-13","cat":"beer","grp":"Камамбер","name":"Камамбер з брускетами","portion":"","price":190,"old":null,"badge":"","desc":"","photo":"img/beer-13.webp","on":1,"sort":130},{"id":"beer-14","cat":"beer","grp":"Камамбер","name":"Камамбер з фруктами","portion":"","price":190,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"beer-15","cat":"beer","grp":"Картопля до пива","name":"Картопля з беконом","portion":"400 г","price":110,"old":null,"badge":"","desc":"","photo":"img/beer-15.webp","on":1,"sort":150},{"id":"beer-16","cat":"beer","grp":"Картопля до пива","name":"Картопля по-креольськи","portion":"500 г","price":130,"old":null,"badge":"","desc":"","photo":"img/beer-16.webp","on":1,"sort":160},{"id":"salads-1","cat":"salads","grp":"Фірмові салати","name":"Салат «НОРМА»","portion":"200 г","price":150,"old":null,"badge":"","desc":"Язик, твердий сир, мариновані гриби.","photo":"","on":1,"sort":10},{"id":"salads-2","cat":"salads","grp":"Фірмові салати","name":"Салат «Вишуканий Норма»","portion":"300 г","price":185,"old":null,"badge":"","desc":"Куряча печінка, салатний мікс, черрі, яблуко.","photo":"","on":1,"sort":20},{"id":"salads-3","cat":"salads","grp":"Фірмові салати","name":"Салат «Цезар»","portion":"300 г","price":185,"old":null,"badge":"","desc":"Салатний мікс, куряче філе, шинка, черрі, перепелині яйця.","photo":"","on":1,"sort":30},{"id":"salads-4","cat":"salads","grp":"Фірмові салати","name":"Салат «Цезар з креветкою»","portion":"250 г","price":280,"old":null,"badge":"","desc":"Салатний мікс, креветка, перепелині яйця, сир, лимон.","photo":"","on":1,"sort":40},{"id":"salads-5","cat":"salads","grp":"Фірмові салати","name":"Салат «Гарячий Цезар»","portion":"300 г","price":185,"old":null,"badge":"","desc":"Пекінська капуста, огірок, помідор, куряче філе, шинка.","photo":"","on":1,"sort":50},{"id":"salads-6","cat":"salads","grp":"Фірмові салати","name":"Салат «Хамон»","portion":"300 г","price":280,"old":null,"badge":"","desc":"Салатний мікс, хамон, крем-сир, черрі.","photo":"","on":1,"sort":60},{"id":"salads-7","cat":"salads","grp":"Фірмові салати","name":"Салат «Буржуй»","portion":"200 г","price":195,"old":null,"badge":"","desc":"Телятина, солоний огірок, мариновані гриби, маринована цибуля.","photo":"","on":1,"sort":70},{"id":"salads-8","cat":"salads","grp":"Фірмові салати","name":"Салат «Тбілісі»","portion":"250 г","price":185,"old":null,"badge":"","desc":"Телятина, цибуля, солодкий перець, аджика.","photo":"","on":1,"sort":80},{"id":"salads-9","cat":"salads","grp":"Фірмові салати","name":"Салат «Осіння балада»","portion":"200 г","price":150,"old":null,"badge":"","desc":"Варена телятина, солоний огірок, морква по-корейськи.","photo":"","on":1,"sort":90},{"id":"salads-10","cat":"salads","grp":"Фірмові салати","name":"Салат «М'ясний»","portion":"250 г","price":185,"old":null,"badge":"","desc":"Смажені гриби, варена свинина, солоний огірок, шинка.","photo":"","on":1,"sort":100},{"id":"salads-11","cat":"salads","grp":"Фірмові салати","name":"Салат «Лісова буваль»","portion":"200 г","price":180,"old":null,"badge":"","desc":"Язик, шинка, куряче філе, мариновані гриби, горіхи, курага.","photo":"","on":1,"sort":110},{"id":"salads-12","cat":"salads","grp":"Фірмові салати","name":"Салат «Штутгардський»","portion":"200 г","price":185,"old":null,"badge":"","desc":"Варений язик, курага, чорнослив, родзинки, горіх.","photo":"","on":1,"sort":120},{"id":"salads-13","cat":"salads","grp":"Фірмові салати","name":"Салат «Серце дракона»","portion":"250 г","price":125,"old":null,"badge":"","desc":"Варене серце, морква по-корейськи.","photo":"","on":1,"sort":130},{"id":"salads-14","cat":"salads","grp":"Фірмові салати","name":"Салат «Виноградинка»","portion":"450 г","price":250,"old":null,"badge":"","desc":"Куряче філе, яйце, консервований ананас, сир, виноград.","photo":"","on":1,"sort":140},{"id":"salads-15","cat":"salads","grp":"Фірмові салати","name":"Салат «З грибами»","portion":"200 г","price":140,"old":null,"badge":"","desc":"Куряче філе, яйце, смажені гриби, помідор, цибуля.","photo":"","on":1,"sort":150},{"id":"salads-16","cat":"salads","grp":"Фірмові салати","name":"Салат «Столичний»","portion":"200 г","price":100,"old":null,"badge":"","desc":"Варене куряче філе, солоний огірок, картопля, яйце, консервований горошок.","photo":"","on":1,"sort":160},{"id":"salads-17","cat":"salads","grp":"Фірмові салати","name":"Салат «Діксі»","portion":"250 г","price":145,"old":null,"badge":"","desc":"Копчене м'ясо, помідор, сир, маслини, мариновані гриби.","photo":"","on":1,"sort":170},{"id":"salads-18","cat":"salads","grp":"Фірмові салати","name":"Салат «Екзотик»","portion":"200 г","price":185,"old":null,"badge":"","desc":"Копчене м'ясо, кукурудза, консервований ананас, мариновані гриби.","photo":"","on":1,"sort":180},{"id":"salads-19","cat":"salads","grp":"Фірмові салати","name":"Салат «Фламінго»","portion":"200 г","price":110,"old":null,"badge":"","desc":"Яйце, консервована кукурудза, консервовані гриби, солодкий перець.","photo":"","on":1,"sort":190},{"id":"salads-20","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Морський»","portion":"250 г","price":225,"old":null,"badge":"","desc":"Мідії, креветки, кальмари, лимон.","photo":"","on":1,"sort":200},{"id":"salads-21","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Морський каприз»","portion":"250 г","price":185,"old":null,"badge":"","desc":"Мариновані гриби, крабові палички, слабосолена сьомга, маслини.","photo":"","on":1,"sort":210},{"id":"salads-22","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Казка рибака»","portion":"200 г","price":185,"old":null,"badge":"","desc":"Яйце, кальмар, крабові палички, сьомга.","photo":"","on":1,"sort":220},{"id":"salads-23","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Кальмар»","portion":"250 г","price":170,"old":null,"badge":"","desc":"Яйце, кальмар, свіжий огірок, консервована кукурудза.","photo":"","on":1,"sort":230},{"id":"salads-24","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Ніжність»","portion":"200 г","price":110,"old":null,"badge":"","desc":"Крабові палички, яйце, огірок, кукурудза.","photo":"","on":1,"sort":240},{"id":"salads-25","cat":"salads","grp":"Рибні та з морепродуктами","name":"Салат «Оселедець під шубою»","portion":"400 г","price":290,"old":null,"badge":"","desc":"Оселедець, картопля, цибуля, морква, буряк.","photo":"","on":1,"sort":250},{"id":"salads-26","cat":"salads","grp":"Овочеві салати","name":"Салат «Грецький»","portion":"250 г","price":120,"old":null,"badge":"","desc":"Огірок, помідор, солодкий перець, маслини, гриби, сир.","photo":"","on":1,"sort":260},{"id":"salads-27","cat":"salads","grp":"Овочеві салати","name":"Салат «Грецький з фетою»","portion":"250 г","price":140,"old":null,"badge":"","desc":"Огірок, помідор, солодкий перець, маслини, гриби, фета.","photo":"","on":1,"sort":270},{"id":"salads-28","cat":"salads","grp":"Овочеві салати","name":"Салат «Асорті»","portion":"250 г","price":55,"old":null,"badge":"","desc":"Капуста, помідор, огірок.","photo":"","on":1,"sort":280},{"id":"salads-29","cat":"salads","grp":"Овочеві салати","name":"Салат «Вітамінчик»","portion":"250 г","price":55,"old":null,"badge":"","desc":"Капуста, огірок, помідор.","photo":"","on":1,"sort":290},{"id":"salads-30","cat":"salads","grp":"Овочеві салати","name":"Салат «Вітамінчик» з майонезом","portion":"250 г","price":65,"old":null,"badge":"","desc":"Капуста, огірок, помідор, майонез.","photo":"","on":1,"sort":300},{"id":"salads-31","cat":"salads","grp":"Овочеві салати","name":"Салат «Комбінований»","portion":"200 г","price":75,"old":null,"badge":"","desc":"Огірок, помідор, цибуля, олія.","photo":"","on":1,"sort":310},{"id":"salads-32","cat":"salads","grp":"Овочеві салати","name":"Салат «Комбінований» з майонезом","portion":"200 г","price":85,"old":null,"badge":"","desc":"Огірок, помідор, цибуля, майонез.","photo":"","on":1,"sort":320},{"id":"salads-33","cat":"salads","grp":"Овочеві салати","name":"Салат «Вінегрет»","portion":"250 г","price":75,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":330},{"id":"salads-34","cat":"salads","grp":"Овочеві салати","name":"Салат з капусти","portion":"200 г","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":340},{"id":"salads-35","cat":"salads","grp":"Овочеві салати","name":"Салат з капусти з майонезом","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":350},{"id":"cold-1","cat":"cold","grp":"Соління та маринади","name":"Огірки солоні","portion":"100 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"cold-2","cat":"cold","grp":"Соління та маринади","name":"Огірки корнішони солоні","portion":"100 г","price":90,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"cold-3","cat":"cold","grp":"Соління та маринади","name":"Помідори солоні","portion":"100 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"cold-4","cat":"cold","grp":"Соління та маринади","name":"Капуста квашена","portion":"100 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"cold-5","cat":"cold","grp":"Соління та маринади","name":"Гриби мариновані","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"cold-6","cat":"cold","grp":"Соління та маринади","name":"Гриби мариновані мікс асорті","portion":"100 г","price":90,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"cold-7","cat":"cold","grp":"Соління та маринади","name":"Часник маринований","portion":"100 г","price":30,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"cold-8","cat":"cold","grp":"Соління та маринади","name":"Морква по-корейськи","portion":"100 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"cold-9","cat":"cold","grp":"Соління та маринади","name":"Масліни","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"cold-10","cat":"cold","grp":"Соління та маринади","name":"Оливки","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"cold-11","cat":"cold","grp":"Овочеві нарізки","name":"Нарізка огірки","portion":"100 г","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"cold-12","cat":"cold","grp":"Овочеві нарізки","name":"Нарізка помідори","portion":"100 г","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"cold-13","cat":"cold","grp":"Овочеві нарізки","name":"Нарізка солодкий перець","portion":"100 г","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"cold-14","cat":"cold","grp":"Овочеві нарізки","name":"Помідори черрі","portion":"100 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"cuts-1","cat":"cuts","grp":"М'ясні нарізки","name":"Буженина домашня","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"cuts-2","cat":"cuts","grp":"М'ясні нарізки","name":"Ковбаса домашня","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"cuts-3","cat":"cuts","grp":"М'ясні нарізки","name":"Ковбаса Київська","portion":"100 г","price":90,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"cuts-4","cat":"cuts","grp":"М'ясні нарізки","name":"Ковбаса с/к","portion":"100 г","price":130,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"cuts-5","cat":"cuts","grp":"М'ясні нарізки","name":"Балик с/к","portion":"100 г","price":140,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"cuts-6","cat":"cuts","grp":"М'ясні нарізки","name":"Бастурма","portion":"100 г","price":130,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"cuts-7","cat":"cuts","grp":"М'ясні нарізки","name":"Шинка","portion":"100 г","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"cuts-8","cat":"cuts","grp":"М'ясні нарізки","name":"Сало свіже","portion":"100 г","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"cuts-9","cat":"cuts","grp":"Сирні нарізки","name":"Сир Брі","portion":"100 г","price":130,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"cuts-10","cat":"cuts","grp":"Сирні нарізки","name":"Сир Дорблю","portion":"100 г","price":150,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"cuts-11","cat":"cuts","grp":"Сирні нарізки","name":"Сир Маасдам","portion":"100 г","price":130,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"cuts-12","cat":"cuts","grp":"Сирні нарізки","name":"Сир твердий","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"soups-1","cat":"soups","grp":"Супи","name":"Борщ український","portion":"250 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"soups-2","cat":"soups","grp":"Супи","name":"Борщ український","portion":"400 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"soups-3","cat":"soups","grp":"Супи","name":"Бограч","portion":"400 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"soups-4","cat":"soups","grp":"Супи","name":"Солянка","portion":"250 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"soups-5","cat":"soups","grp":"Супи","name":"Солянка","portion":"400 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"soups-6","cat":"soups","grp":"Супи","name":"Суп Харчо","portion":"250 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"soups-7","cat":"soups","grp":"Супи","name":"Суп Харчо","portion":"400 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"soups-8","cat":"soups","grp":"Супи","name":"Суп з фрикадельками","portion":"250 г","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"soups-9","cat":"soups","grp":"Супи","name":"Суп з фрикадельками","portion":"400 г","price":75,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"soups-10","cat":"soups","grp":"Супи","name":"Суп грибний з плавленим сиром","portion":"400 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"soups-11","cat":"soups","grp":"Окрошка","name":"Окрошка з куркою","portion":"250 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"soups-12","cat":"soups","grp":"Окрошка","name":"Окрошка з куркою","portion":"400 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"soups-13","cat":"soups","grp":"Окрошка","name":"Окрошка з телятиною","portion":"250 г","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"soups-14","cat":"soups","grp":"Окрошка","name":"Окрошка з телятиною","portion":"400 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"soups-15","cat":"soups","grp":"Окрошка","name":"Окрошка з сьомгою","portion":"400 г","price":150,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":150},{"id":"meat-1","cat":"meat","grp":"Відбивні","name":"Відбивна куряча","portion":"150 г","price":150,"old":null,"badge":"","desc":"","photo":"img/meat-1.webp","on":1,"sort":10},{"id":"meat-2","cat":"meat","grp":"Відбивні","name":"Відбивна куряча з ананасом","portion":"250 г","price":180,"old":null,"badge":"","desc":"","photo":"img/meat-2.webp","on":1,"sort":20},{"id":"meat-3","cat":"meat","grp":"Відбивні","name":"Відбивна по-царськи (курка)","portion":"200 г","price":180,"old":null,"badge":"","desc":"","photo":"img/meat-3.webp","on":1,"sort":30},{"id":"meat-4","cat":"meat","grp":"Відбивні","name":"Відбивна свинина","portion":"150 г","price":160,"old":null,"badge":"","desc":"","photo":"img/meat-4.webp","on":1,"sort":40},{"id":"meat-5","cat":"meat","grp":"Відбивні","name":"Відбивна свинина з ананасом","portion":"250 г","price":200,"old":null,"badge":"","desc":"","photo":"img/meat-5.webp","on":1,"sort":50},{"id":"meat-6","cat":"meat","grp":"Відбивні","name":"Відбивна по-царськи (свинина)","portion":"200 г","price":180,"old":null,"badge":"","desc":"","photo":"img/meat-6.webp","on":1,"sort":60},{"id":"meat-7","cat":"meat","grp":"Відбивні","name":"Відбивна в горіхах","portion":"250 г","price":150,"old":null,"badge":"","desc":"","photo":"img/meat-7.webp","on":1,"sort":70},{"id":"meat-8","cat":"meat","grp":"Відбивні","name":"Відбивна телятина","portion":"150 г","price":175,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"meat-9","cat":"meat","grp":"Котлети та крученики","name":"Котлета куряча","portion":"100 г","price":65,"old":null,"badge":"","desc":"","photo":"img/meat-9.webp","on":1,"sort":90},{"id":"meat-10","cat":"meat","grp":"Котлети та крученики","name":"Котлета куряча з сиром і грибами","portion":"100 г","price":85,"old":null,"badge":"","desc":"","photo":"img/meat-10.webp","on":1,"sort":100},{"id":"meat-11","cat":"meat","grp":"Котлети та крученики","name":"Котлета по-київськи","portion":"100 г","price":105,"old":null,"badge":"","desc":"","photo":"img/meat-11.webp","on":1,"sort":110},{"id":"meat-12","cat":"meat","grp":"Котлети та крученики","name":"Котлета свиняча","portion":"100 г","price":65,"old":null,"badge":"","desc":"","photo":"img/meat-12.webp","on":1,"sort":120},{"id":"meat-13","cat":"meat","grp":"Котлети та крученики","name":"Крученики (курка, сир, чорнослив)","portion":"200 г","price":160,"old":null,"badge":"","desc":"","photo":"img/meat-13.webp","on":1,"sort":130},{"id":"meat-14","cat":"meat","grp":"Печінка та піджарка","name":"Печінка смажена з цибулею","portion":"200 г","price":90,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"meat-15","cat":"meat","grp":"Печінка та піджарка","name":"Печінка смажена з грибами","portion":"200 г","price":110,"old":null,"badge":"","desc":"","photo":"img/meat-15.webp","on":1,"sort":150},{"id":"meat-16","cat":"meat","grp":"Печінка та піджарка","name":"Печінка смажена з грушею","portion":"250 г","price":110,"old":null,"badge":"","desc":"","photo":"img/meat-16.webp","on":1,"sort":160},{"id":"meat-17","cat":"meat","grp":"Печінка та піджарка","name":"Піджарка куряча","portion":"200 г","price":160,"old":null,"badge":"","desc":"","photo":"img/meat-17.webp","on":1,"sort":170},{"id":"meat-18","cat":"meat","grp":"Печінка та піджарка","name":"Піджарка свиняча","portion":"200 г","price":160,"old":null,"badge":"","desc":"","photo":"img/meat-18.webp","on":1,"sort":180},{"id":"meat-19","cat":"meat","grp":"Інше","name":"Телятина з овочами","portion":"200 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":190},{"id":"meat-20","cat":"meat","grp":"Інше","name":"Гриби смажені з цибулею","portion":"200 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":200},{"id":"meat-21","cat":"meat","grp":"Інше","name":"Сосиски","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":210},{"id":"grill-1","cat":"grill","grp":"Стейки","name":"Стейк курячий","portion":"200 г","price":180,"old":null,"badge":"","desc":"","photo":"img/grill-1.webp","on":1,"sort":10},{"id":"grill-2","cat":"grill","grp":"Стейки","name":"Стейк свинина","portion":"200 г","price":200,"old":null,"badge":"","desc":"","photo":"img/grill-2.webp","on":1,"sort":20},{"id":"grill-3","cat":"grill","grp":"Стейки","name":"Стейк телятина","portion":"200 г","price":220,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"grill-4","cat":"grill","grp":"Стейки","name":"Стейк телячий з овочами гриль","portion":"200/150 г","price":290,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"grill-5","cat":"grill","grp":"Стейки","name":"Стейк телячий з лавашем","portion":"200 г","price":270,"old":null,"badge":"","desc":"","photo":"img/grill-5.webp","on":1,"sort":50},{"id":"grill-6","cat":"grill","grp":"Шашлик та гриль","name":"Шашлик зі свинини","portion":"100 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"grill-7","cat":"grill","grp":"Шашлик та гриль","name":"Шиштаук","portion":"350 г","price":230,"old":null,"badge":"","desc":"","photo":"img/grill-7.webp","on":1,"sort":70},{"id":"grill-8","cat":"grill","grp":"Шашлик та гриль","name":"Шиштаук з картоплею фрі","portion":"500 г","price":250,"old":null,"badge":"","desc":"","photo":"img/grill-8.webp","on":1,"sort":80},{"id":"grill-9","cat":"grill","grp":"Шашлик та гриль","name":"Люля-кебаб Норма","portion":"1 кг","price":750,"old":null,"badge":"","desc":"","photo":"img/grill-9.webp","on":1,"sort":90},{"id":"grill-10","cat":"grill","grp":"Шашлик та гриль","name":"Ковбаски гриль","portion":"500 г","price":350,"old":null,"badge":"","desc":"","photo":"img/grill-10.webp","on":1,"sort":100},{"id":"fish-1","cat":"fish","grp":"Гарячі","name":"Стейк лосося","portion":"1 порція","price":280,"old":null,"badge":"","desc":"","photo":"img/fish-1.webp","on":1,"sort":10},{"id":"fish-2","cat":"fish","grp":"Гарячі","name":"Лосось запечений","portion":"100 г","price":140,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"fish-3","cat":"fish","grp":"Гарячі","name":"Скумбрія запечена","portion":"100 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"fish-4","cat":"fish","grp":"Гарячі","name":"Стейк кликача","portion":"100 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"fish-5","cat":"fish","grp":"Гарячі","name":"Філе тілапії під соусом","portion":"100 г","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"fish-6","cat":"fish","grp":"Гарячі","name":"Хек смажений","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"fish-7","cat":"fish","grp":"Гарячі","name":"Риба під овочами","portion":"100 г","price":75,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"fish-8","cat":"fish","grp":"Гарячі","name":"Риба відварена","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"fish-9","cat":"fish","grp":"Гарячі","name":"Морепродукти у вершковому соусі","portion":"300 г","price":300,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"fish-10","cat":"fish","grp":"Солона та копчена","name":"Сьомга слабосолена","portion":"100 г","price":300,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"fish-11","cat":"fish","grp":"Солона та копчена","name":"Форель слабосолена","portion":"100 г","price":300,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"fish-12","cat":"fish","grp":"Солона та копчена","name":"Горбуша холодного копчення","portion":"100 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"fish-13","cat":"fish","grp":"Солона та копчена","name":"Скумбрія холодного копчення","portion":"100 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"fish-14","cat":"fish","grp":"Солона та копчена","name":"Скумбрія солона","portion":"100 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"fish-15","cat":"fish","grp":"Солона та копчена","name":"Оселедець солоний","portion":"100 г","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":150},{"id":"pasta-1","cat":"pasta","grp":"","name":"Паста Карбонара","portion":"250 г","price":150,"old":null,"badge":"","desc":"","photo":"img/pasta-1.webp","on":1,"sort":10},{"id":"pasta-2","cat":"pasta","grp":"","name":"Паста Болоньєз","portion":"250 г","price":150,"old":null,"badge":"","desc":"","photo":"img/pasta-2.webp","on":1,"sort":20},{"id":"pasta-3","cat":"pasta","grp":"","name":"Паста з куркою та грибами","portion":"250 г","price":150,"old":null,"badge":"","desc":"","photo":"img/pasta-3.webp","on":1,"sort":30},{"id":"pasta-4","cat":"pasta","grp":"","name":"Паста з морепродуктами","portion":"300 г","price":220,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"pasta-5","cat":"pasta","grp":"","name":"Плов Норма","portion":"300 г","price":105,"old":null,"badge":"","desc":"","photo":"img/pasta-5.webp","on":1,"sort":50},{"id":"pizza-1","cat":"pizza","grp":"","name":"Піца Фірмова","portion":"","price":150,"old":null,"badge":"","desc":"Шинка, помідор, кукурудза.","photo":"","on":1,"sort":10},{"id":"pizza-2","cat":"pizza","grp":"","name":"Піца 4 Сири","portion":"","price":180,"old":null,"badge":"","desc":"Чотири види сиру.","photo":"","on":1,"sort":20},{"id":"pizza-3","cat":"pizza","grp":"","name":"Піца «А-море-міо»","portion":"","price":180,"old":null,"badge":"","desc":"Помідор, маслини, шинка, салямі.","photo":"","on":1,"sort":30},{"id":"pizza-4","cat":"pizza","grp":"","name":"Піца Пепероні","portion":"","price":150,"old":null,"badge":"","desc":"Салямі, оливки.","photo":"","on":1,"sort":40},{"id":"pizza-5","cat":"pizza","grp":"","name":"Піца Верона","portion":"","price":150,"old":null,"badge":"","desc":"Шинка, салямі, солодкий перець.","photo":"","on":1,"sort":50},{"id":"pizza-6","cat":"pizza","grp":"","name":"Піца Каприз","portion":"","price":150,"old":null,"badge":"","desc":"Шинка, гриби, цибуля, маслини.","photo":"","on":1,"sort":60},{"id":"pizza-7","cat":"pizza","grp":"","name":"Піца Люкс","portion":"","price":160,"old":null,"badge":"","desc":"Копчене м'ясо, шинка, ананас.","photo":"","on":1,"sort":70},{"id":"pizza-8","cat":"pizza","grp":"","name":"Піца Гавайська","portion":"","price":150,"old":null,"badge":"","desc":"Курка, ананас, кукурудза.","photo":"","on":1,"sort":80},{"id":"pizza-9","cat":"pizza","grp":"","name":"Піца з куркою та грибами","portion":"","price":150,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"pizza-10","cat":"pizza","grp":"","name":"Піца Шинка з сиром","portion":"","price":150,"old":null,"badge":"","desc":"Шинка, сир.","photo":"","on":1,"sort":100},{"id":"pizza-11","cat":"pizza","grp":"","name":"Піца з морепродуктами","portion":"","price":200,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"pizza-12","cat":"pizza","grp":"","name":"Піца Вегетаріанська","portion":"","price":160,"old":null,"badge":"","desc":"Гриби, помідор, маслини, солодкий перець.","photo":"","on":1,"sort":120},{"id":"dumplings-1","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Пельмені домашні","portion":"200 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"dumplings-2","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Пельмені по-європейськи","portion":"200 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"dumplings-3","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Вареники з картоплею","portion":"300 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"dumplings-4","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Вареники з кисломолочним сиром","portion":"300 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"dumplings-5","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Хінкалі","portion":"4 шт","price":200,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"dumplings-6","cat":"dumplings","grp":"Пельмені, вареники, хінкалі","name":"Хінкалі з сиром","portion":"4 шт","price":200,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"dumplings-7","cat":"dumplings","grp":"Млинці","name":"Млинці","portion":"4 шт","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"dumplings-8","cat":"dumplings","grp":"Млинці","name":"Млинці з джемом","portion":"2 шт","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"dumplings-9","cat":"dumplings","grp":"Млинці","name":"Млинці з кисломолочним сиром","portion":"200 г","price":75,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"dumplings-10","cat":"dumplings","grp":"Млинці","name":"Млинці з вишнею","portion":"200 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"dumplings-11","cat":"dumplings","grp":"Млинці","name":"Млинці з м'ясом","portion":"200 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"dumplings-12","cat":"dumplings","grp":"Млинці","name":"Млинці з куркою та грибами","portion":"200 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"dumplings-13","cat":"dumplings","grp":"Млинці","name":"Млинці з ікрою","portion":"200 г","price":125,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"dumplings-14","cat":"dumplings","grp":"Млинці","name":"Млинці з сьомгою","portion":"200 г","price":125,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"sides-1","cat":"sides","grp":"Картопля","name":"Картопля фрі","portion":"200 г","price":55,"old":null,"badge":"","desc":"","photo":"img/sides-1.webp","on":1,"sort":10},{"id":"sides-2","cat":"sides","grp":"Картопля","name":"Картопля по-селянськи","portion":"200 г","price":55,"old":null,"badge":"","desc":"","photo":"img/sides-2.webp","on":1,"sort":20},{"id":"sides-3","cat":"sides","grp":"Картопля","name":"Картопля пюре","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/sides-3.webp","on":1,"sort":30},{"id":"sides-4","cat":"sides","grp":"Картопля","name":"Картопля відварна з маслом","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/sides-4.webp","on":1,"sort":40},{"id":"sides-5","cat":"sides","grp":"Картопля","name":"Картопля молода","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/sides-5.webp","on":1,"sort":50},{"id":"sides-6","cat":"sides","grp":"Картопля","name":"Картопля оригінальна","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"sides-7","cat":"sides","grp":"Картопля","name":"Картопля смажена з цибулею","portion":"250 г","price":50,"old":null,"badge":"","desc":"","photo":"img/sides-7.webp","on":1,"sort":70},{"id":"sides-8","cat":"sides","grp":"Картопля","name":"Картопля смажена з грибами","portion":"250 г","price":80,"old":null,"badge":"","desc":"","photo":"img/sides-8.webp","on":1,"sort":80},{"id":"sides-9","cat":"sides","grp":"Крупи, овочі та інше","name":"Гречка","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/sides-9.webp","on":1,"sort":90},{"id":"sides-10","cat":"sides","grp":"Крупи, овочі та інше","name":"Рис","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/sides-10.webp","on":1,"sort":100},{"id":"sides-11","cat":"sides","grp":"Крупи, овочі та інше","name":"Рис з овочами","portion":"350 г","price":100,"old":null,"badge":"","desc":"","photo":"img/sides-11.webp","on":1,"sort":110},{"id":"sides-12","cat":"sides","grp":"Крупи, овочі та інше","name":"Макарони з маслом","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"sides-13","cat":"sides","grp":"Крупи, овочі та інше","name":"Овочі гриль","portion":"500 г","price":180,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"sides-14","cat":"sides","grp":"Крупи, овочі та інше","name":"Складний гарнір","portion":"200 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"sides-15","cat":"sides","grp":"Крупи, овочі та інше","name":"Жарке в горщику","portion":"350 г","price":125,"old":null,"badge":"","desc":"","photo":"img/sides-15.webp","on":1,"sort":150},{"id":"eggs-1","cat":"eggs","grp":"Омлети","name":"Омлет натуральний","portion":"120 г","price":75,"old":null,"badge":"","desc":"","photo":"img/eggs-1.webp","on":1,"sort":10},{"id":"eggs-2","cat":"eggs","grp":"Омлети","name":"Омлет з грибами","portion":"150 г","price":85,"old":null,"badge":"","desc":"","photo":"img/eggs-2.webp","on":1,"sort":20},{"id":"eggs-3","cat":"eggs","grp":"Омлети","name":"Омлет з шинкою","portion":"150 г","price":85,"old":null,"badge":"","desc":"","photo":"img/eggs-3.webp","on":1,"sort":30},{"id":"eggs-4","cat":"eggs","grp":"Омлети","name":"Омлет з куркою та сиром","portion":"150 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"eggs-5","cat":"eggs","grp":"Омлети","name":"Омлет з шинкою та сиром","portion":"150 г","price":95,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"eggs-6","cat":"eggs","grp":"Яєчні","name":"Яєчня","portion":"150 г","price":45,"old":null,"badge":"","desc":"","photo":"img/eggs-6.webp","on":1,"sort":60},{"id":"eggs-7","cat":"eggs","grp":"Яєчні","name":"Яєчня з салом","portion":"","price":55,"old":null,"badge":"","desc":"","photo":"img/eggs-7.webp","on":1,"sort":70},{"id":"eggs-8","cat":"eggs","grp":"Яєчні","name":"Яєчня з овочами","portion":"300 г","price":65,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"eggs-9","cat":"eggs","grp":"Яєчні","name":"Яєчня з шинкою","portion":"","price":80,"old":null,"badge":"","desc":"","photo":"img/eggs-9.webp","on":1,"sort":90},{"id":"eggs-10","cat":"eggs","grp":"Яєчні","name":"Яєчня з перепелиних яєць","portion":"","price":120,"old":null,"badge":"","desc":"","photo":"img/eggs-10.webp","on":1,"sort":100},{"id":"eggs-11","cat":"eggs","grp":"Яєчні","name":"Яйце пашот","portion":"","price":150,"old":null,"badge":"","desc":"","photo":"img/eggs-11.webp","on":1,"sort":110},{"id":"fitness-1","cat":"fitness","grp":"Білок","name":"Філе куряче запечене","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"fitness-2","cat":"fitness","grp":"Білок","name":"Телятина запечена","portion":"100 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"fitness-3","cat":"fitness","grp":"Білок","name":"Окунь морський запечений","portion":"100 г","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"fitness-4","cat":"fitness","grp":"Білок","name":"Сирна запіканка з родзинками","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"fitness-5","cat":"fitness","grp":"Гарніри без масла","name":"Гречка (без масла)","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"img/fitness-5.webp","on":1,"sort":50},{"id":"fitness-6","cat":"fitness","grp":"Гарніри без масла","name":"Картопля відварна (без масла)","portion":"200 г","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"fitness-7","cat":"fitness","grp":"Гарніри без масла","name":"Кус-кус (без масла)","portion":"200 г","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"fitness-8","cat":"fitness","grp":"Гарніри без масла","name":"Макарони Protein (без масла)","portion":"200 г","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"fitness-9","cat":"fitness","grp":"Гарніри без масла","name":"Чечевиця (без масла)","portion":"200 г","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"fitness-10","cat":"fitness","grp":"Гарніри без масла","name":"Брускета","portion":"1 шт","price":5,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"bread-1","cat":"bread","grp":"Бутерброди","name":"Бутерброд з сиром і маслом","portion":"20/30 г","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"bread-2","cat":"bread","grp":"Бутерброди","name":"Бутерброд з ковбасою","portion":"20/30 г","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"bread-3","cat":"bread","grp":"Бутерброди","name":"Бутерброд з шинкою","portion":"20/30 г","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"bread-4","cat":"bread","grp":"Бутерброди","name":"Бутерброд з баликом","portion":"20/30 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"bread-5","cat":"bread","grp":"Бутерброди","name":"Бутерброд з червоною рибою","portion":"","price":100,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"bread-6","cat":"bread","grp":"Бутерброди","name":"Бутерброд з ікрою","portion":"20/10/2 г","price":120,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"bread-7","cat":"bread","grp":"Гарячі бутерброди","name":"Гарячий бутерброд з ковбасою та сиром","portion":"","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"bread-8","cat":"bread","grp":"Гарячі бутерброди","name":"Гарячий бутерброд з шинкою","portion":"","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"bread-9","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Хліб білий","portion":"20 г","price":3,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"bread-10","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Хліб чорний","portion":"40 г","price":3,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"bread-11","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Хліб Чіабатта","portion":"1 шматок","price":5,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"bread-12","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Хліб з маслом","portion":"20/30 г","price":15,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"bread-13","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Тост","portion":"1 шт","price":5,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"bread-14","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Грінка Брускета","portion":"1 шт","price":5,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"bread-15","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Лаваш смажений","portion":"1 шт","price":6,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":150},{"id":"bread-16","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Лаваш фарширований","portion":"1 шт","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":160},{"id":"bread-17","cat":"bread","grp":"Хліб, лаваш, додатки","name":"Масло вершкове","portion":"50 г","price":15,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":170},{"id":"desserts-1","cat":"desserts","grp":"","name":"Сирник Норма","portion":"1 порція, 4 шт","price":100,"old":null,"badge":"","desc":"","photo":"img/desserts-1.webp","on":1,"sort":10},{"id":"desserts-2","cat":"desserts","grp":"","name":"Торт Норма","portion":"","price":50,"old":null,"badge":"","desc":"","photo":"img/desserts-2.webp","on":1,"sort":20},{"id":"desserts-3","cat":"desserts","grp":"","name":"Бельгійські вафлі","portion":"3 шт","price":75,"old":null,"badge":"","desc":"","photo":"img/desserts-3.webp","on":1,"sort":30},{"id":"desserts-4","cat":"desserts","grp":"","name":"Бельгійські вафлі","portion":"6 шт","price":100,"old":null,"badge":"","desc":"","photo":"img/desserts-4.webp","on":1,"sort":40},{"id":"desserts-5","cat":"desserts","grp":"","name":"Бельгійські вафлі","portion":"9 шт","price":125,"old":null,"badge":"","desc":"","photo":"img/desserts-5.webp","on":1,"sort":50},{"id":"desserts-6","cat":"desserts","grp":"","name":"Бельгійські вафлі з морозивом","portion":"4 шт","price":100,"old":null,"badge":"","desc":"","photo":"img/desserts-6.webp","on":1,"sort":60},{"id":"desserts-7","cat":"desserts","grp":"","name":"Бельгійські вафлі з сьомгою","portion":"","price":150,"old":null,"badge":"","desc":"","photo":"img/desserts-7.webp","on":1,"sort":70},{"id":"icecream-1","cat":"icecream","grp":"","name":"Морозиво пломбір","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"img/icecream-1.webp","on":1,"sort":10},{"id":"icecream-2","cat":"icecream","grp":"","name":"Морозиво з джемом","portion":"","price":80,"old":null,"badge":"","desc":"","photo":"img/icecream-2.webp","on":1,"sort":20},{"id":"icecream-3","cat":"icecream","grp":"","name":"Морозиво з фруктами","portion":"200 г","price":100,"old":null,"badge":"","desc":"","photo":"img/icecream-3.webp","on":1,"sort":30},{"id":"icecream-4","cat":"icecream","grp":"","name":"Морозиво м'яке «Веселка»","portion":"150 г","price":100,"old":null,"badge":"","desc":"","photo":"img/icecream-4.webp","on":1,"sort":40},{"id":"icecream-5","cat":"icecream","grp":"","name":"Морозиво ріжок","portion":"","price":60,"old":null,"badge":"","desc":"","photo":"img/icecream-5.webp","on":1,"sort":50},{"id":"shakes-1","cat":"shakes","grp":"","name":"Коктейль молочний з джемом","portion":"250 мл","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"shakes-2","cat":"shakes","grp":"","name":"Коктейль молочний з джемом","portion":"400 мл","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"shakes-3","cat":"shakes","grp":"","name":"Коктейль з бананом та джемом","portion":"","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"shakes-4","cat":"shakes","grp":"","name":"Коктейль з ківі та джемом","portion":"","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"coffee-1","cat":"coffee","grp":"Кава","name":"Еспресо","portion":"110 мл","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"coffee-2","cat":"coffee","grp":"Кава","name":"Рістретто","portion":"","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"coffee-3","cat":"coffee","grp":"Кава","name":"Доппіо","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"coffee-4","cat":"coffee","grp":"Кава","name":"Еспресо з молоком","portion":"","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":40},{"id":"coffee-5","cat":"coffee","grp":"Кава","name":"Американо","portion":"180 мл","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":50},{"id":"coffee-6","cat":"coffee","grp":"Кава","name":"Американо з молоком","portion":"180 мл","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":60},{"id":"coffee-7","cat":"coffee","grp":"Кава","name":"Капучино","portion":"180 мл","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"coffee-8","cat":"coffee","grp":"Кава","name":"Капучино","portion":"250 мл","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"coffee-9","cat":"coffee","grp":"Кава","name":"Флет Уайт","portion":"180 мл","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"coffee-10","cat":"coffee","grp":"Кава","name":"Флет Уайт","portion":"250 мл","price":65,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"coffee-11","cat":"coffee","grp":"Кава","name":"Лате","portion":"340 мл","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":110},{"id":"coffee-12","cat":"coffee","grp":"Чай","name":"Чай заварний","portion":"200 мл","price":30,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":120},{"id":"coffee-13","cat":"coffee","grp":"Чай","name":"Чай заварний з лимоном","portion":"200 мл","price":35,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"coffee-14","cat":"coffee","grp":"Чай","name":"Чай заварний у чайнику","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":140},{"id":"coffee-15","cat":"coffee","grp":"Чай","name":"Чай з медом і корицею","portion":"450 мл","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":150},{"id":"coffee-16","cat":"coffee","grp":"Чай","name":"Чай імбир-мед","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":160},{"id":"coffee-17","cat":"coffee","grp":"Чай","name":"Чай Манго","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":170},{"id":"coffee-18","cat":"coffee","grp":"Чай","name":"Чай Обліпиха","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":180},{"id":"coffee-19","cat":"coffee","grp":"Чай","name":"Чай Квітка (заварник)","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":190},{"id":"coffee-20","cat":"coffee","grp":"Чай","name":"Чай Листок (заварник)","portion":"","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":200},{"id":"coffee-21","cat":"coffee","grp":"Чай","name":"Чай Синій","portion":"","price":30,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":210},{"id":"coffee-22","cat":"coffee","grp":"Чай","name":"Чай Синій (заварник)","portion":"","price":40,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":220},{"id":"coffee-23","cat":"coffee","grp":"Додатки","name":"Мед","portion":"50 г","price":25,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":230},{"id":"coffee-24","cat":"coffee","grp":"Додатки","name":"Мед","portion":"100 г","price":50,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":240},{"id":"coffee-25","cat":"coffee","grp":"Додатки","name":"Сироп до кави","portion":"25 г","price":10,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":250},{"id":"bq-cold-1","cat":"bq-cold","grp":"","name":"Язик відварний (нарізка)","portion":"100 г","price":120,"old":null,"badge":"","desc":"","photo":"img/bq-cold-1.webp","on":1,"sort":10},{"id":"bq-cold-2","cat":"bq-cold","grp":"","name":"Язик заливний","portion":"1 порція","price":120,"old":null,"badge":"","desc":"","photo":"img/bq-cold-2.webp","on":1,"sort":20},{"id":"bq-cold-3","cat":"bq-cold","grp":"","name":"Паштет печінковий","portion":"100 г","price":55,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"bq-cold-4","cat":"bq-cold","grp":"","name":"Рулет печінковий","portion":"100 г","price":55,"old":null,"badge":"","desc":"","photo":"img/bq-cold-4.webp","on":1,"sort":40},{"id":"bq-cold-5","cat":"bq-cold","grp":"","name":"Торт печінковий","portion":"100 г","price":55,"old":null,"badge":"","desc":"","photo":"img/bq-cold-5.webp","on":1,"sort":50},{"id":"bq-cold-6","cat":"bq-cold","grp":"","name":"Кури копчені","portion":"100 г","price":38,"old":null,"badge":"","desc":"","photo":"img/bq-cold-6.webp","on":1,"sort":60},{"id":"bq-cold-7","cat":"bq-cold","grp":"","name":"Риба заливна","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":70},{"id":"bq-cold-8","cat":"bq-cold","grp":"","name":"Риба в томатному соусі","portion":"100 г","price":60,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":80},{"id":"bq-hot-1","cat":"bq-hot","grp":"М'ясо","name":"Голубці","portion":"100 г","price":45,"old":null,"badge":"","desc":"","photo":"img/bq-hot-1.webp","on":1,"sort":10},{"id":"bq-hot-2","cat":"bq-hot","grp":"М'ясо","name":"Тефтелі","portion":"","price":45,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20},{"id":"bq-hot-3","cat":"bq-hot","grp":"М'ясо","name":"Печеня (жарке) зі свинини","portion":"100 г","price":70,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":30},{"id":"bq-hot-4","cat":"bq-hot","grp":"М'ясо","name":"Телятина відварена","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"img/bq-hot-4.webp","on":1,"sort":40},{"id":"bq-hot-5","cat":"bq-hot","grp":"М'ясо","name":"Пальчики свинні з салом і часником","portion":"200 г","price":180,"old":null,"badge":"","desc":"","photo":"img/bq-hot-5.webp","on":1,"sort":50},{"id":"bq-hot-6","cat":"bq-hot","grp":"М'ясо","name":"Пальчики свинні з сиром і грибами","portion":"100 г","price":160,"old":null,"badge":"","desc":"","photo":"img/bq-hot-6.webp","on":1,"sort":60},{"id":"bq-hot-7","cat":"bq-hot","grp":"М'ясо","name":"Пальчики свинні з сиром і чорносливом","portion":"100 г","price":160,"old":null,"badge":"","desc":"","photo":"img/bq-hot-7.webp","on":1,"sort":70},{"id":"bq-hot-8","cat":"bq-hot","grp":"М'ясо","name":"Ребро в медовому соусі","portion":"100 г","price":99,"old":null,"badge":"","desc":"","photo":"img/bq-hot-8.webp","on":1,"sort":80},{"id":"bq-hot-9","cat":"bq-hot","grp":"М'ясо","name":"Ребро з овочами","portion":"1 кг","price":700,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":90},{"id":"bq-hot-10","cat":"bq-hot","grp":"М'ясо","name":"Ребро смажене з гірчичним соусом","portion":"1 кг","price":700,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":100},{"id":"bq-hot-11","cat":"bq-hot","grp":"Курка","name":"Кури смажені","portion":"100 г","price":35,"old":null,"badge":"","desc":"","photo":"img/bq-hot-11.webp","on":1,"sort":110},{"id":"bq-hot-12","cat":"bq-hot","grp":"Курка","name":"Курячі крильця смажені","portion":"1 кг","price":350,"old":null,"badge":"","desc":"","photo":"img/bq-hot-12.webp","on":1,"sort":120},{"id":"bq-hot-13","cat":"bq-hot","grp":"Курка","name":"Курячі стегна смажені","portion":"1 кг","price":380,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":130},{"id":"bq-hot-14","cat":"bq-hot","grp":"Закуски","name":"Камамбер сир у тісті","portion":"","price":240,"old":null,"badge":"","desc":"","photo":"img/bq-hot-14.webp","on":1,"sort":140},{"id":"bq-fish-1","cat":"bq-fish","grp":"","name":"Щука фарширована","portion":"1 кг","price":750,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"bq-fish-2","cat":"bq-fish","grp":"","name":"Короп смажений","portion":"100 г","price":95,"old":null,"badge":"","desc":"","photo":"img/bq-fish-2.webp","on":1,"sort":20},{"id":"bq-fish-3","cat":"bq-fish","grp":"","name":"Морський окунь запечений","portion":"100 г","price":80,"old":null,"badge":"","desc":"","photo":"img/bq-fish-3.webp","on":1,"sort":30},{"id":"bq-fish-4","cat":"bq-fish","grp":"","name":"Товстолоб смажений","portion":"100 г","price":55,"old":null,"badge":"","desc":"","photo":"img/bq-fish-4.webp","on":1,"sort":40},{"id":"bq-kanun-1","cat":"bq-kanun","grp":"","name":"Канун","portion":"250 г","price":20,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":10},{"id":"bq-kanun-2","cat":"bq-kanun","grp":"","name":"Каша молочна рисова","portion":"200 г","price":24,"old":null,"badge":"","desc":"","photo":"","on":1,"sort":20}],"settings":{"delivery":{"min":1000,"fee":0,"freeFrom":1000},"banquet":{"leadHours":6,"minGuests":0}}};
+
+
+const $ = s => document.querySelector(s);
+const menu = $('#menu'), chips = $('#chips');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const API = CONFIG.orderEndpoint ? CONFIG.orderEndpoint.replace(/\/$/, '') : '';
+$('#ph').src = 'data:image/webp;base64,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';
+
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem('norma_'+k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem('norma_'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+/* ====== МЕНЮ: дані ====== */
+let CATS = [], CAT = new Map(), ITEMS = new Map();
+let section = /banquet/.test(location.hash) ? 'banquet' : 'main';
+const SET = {delivery: {...CONFIG.delivery}, banquet: {...CONFIG.banquet}};
+function applyMenu(m){
+  CATS = [...m.cats].sort((a,b) => (a.sort||0) - (b.sort||0));
+  CAT = new Map(CATS.map(c => [c.id, c]));
+  ITEMS = new Map();
+  [...m.items].sort((a,b) => (a.sort||0) - (b.sort||0)).forEach(i => { if (CAT.has(i.cat)) ITEMS.set(i.id, i); });
+  if (m.settings){ Object.assign(SET.delivery, m.settings.delivery || {}); Object.assign(SET.banquet, m.settings.banquet || {}); }
+}
+const typeOf = it => ((it && CAT.get(it.cat)) || {}).type || 'regular';
+/* фото: посилання / шлях на сайті (img/…) / data: — як є; інакше це фото з Telegram-бота → через Worker */
+const photoUrl = p => !p ? '' : /^(https?:|data:image\/)/.test(p) || p.includes('/') ? p : API ? API + '/img/' + encodeURIComponent(p) : '';
+
+/* Час у Києві (сніданки, банкет) */
+const KYIV_T = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Kyiv', hour:'2-digit', minute:'2-digit', hourCycle:'h23'});
+const KYIV_D = new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Kyiv', year:'numeric', month:'2-digit', day:'2-digit'});
+const nowHM = () => window.__NOW_HM || KYIV_T.format(new Date());
+const todayKyiv = () => window.__TODAY || KYIV_D.format(new Date());
+const addDays = (d, n) => { const x = new Date(d + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+const isOpen = c => !c || c.type !== 'breakfast' || !c.from || !c.to || (nowHM() >= c.from && nowHM() < c.to);
+const canOrder = it => !!it && !!it.on && isOpen(CAT.get(it.cat));
+/* найраніший час банкету: зараз (Київ) + leadHours → 'YYYY-MM-DDTHH:MM' */
+const leadH = () => Number.isFinite(+SET.banquet.leadHours) ? +SET.banquet.leadHours : 6;
+const minBqDT = () => new Date(Date.parse(`${todayKyiv()}T${nowHM()}:00Z`) + leadH() * 3600e3).toISOString().slice(0, 16);
+const fmtDT = dt => `${dt.slice(8, 10)}.${dt.slice(5, 7)} о ${dt.slice(11, 16)}`;
+
+/* ====== РЕНДЕР МЕНЮ ====== */
+function catNote(c){
+  if (c.type === 'breakfast' && c.from) return isOpen(c)
+    ? `<div class="cnote">🕘 Сніданки подаємо з ${esc(c.from)} до ${esc(c.to)}</div>`
+    : `<div class="cnote closed">🔒 Сніданки доступні з ${esc(c.from)} до ${esc(c.to)}. Зараз замовити не можна — чекаємо вас уранці!</div>`;
+  return '';
+}
+function itemHTML(i, k, needle){
+  let name = esc(i.name);
+  if (needle) name = name.replace(new RegExp('(' + esc(needle).replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','ig'), '<mark>$1</mark>');
+  const ph = photoUrl(i.photo);
+  return `<div class="item${i.on ? '' : ' off'}${i.old ? ' promo' : ''}" style="--i:${Math.min(k,8)}" data-open="${esc(i.id)}" role="button" tabindex="0" aria-label="${esc(i.name)}, ${i.price} гривень — детальніше">`
+    + (ph ? `<div class="thumb"><img src="${esc(ph)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>` : '')
+    + `<div class="info"><span class="nm">${name}${i.badge ? ` <i class="bdg">${esc(i.badge)}</i>` : ''}</span>${i.portion ? `<span class="pt">${esc(i.portion)}</span>` : ''}${i.desc ? `<span class="ds">${esc(i.desc)}</span>` : ''}</div>`
+    + `<div class="side"><div class="pr">${i.old ? `<s>${i.old} ₴</s>` : ''}<span>${i.price}<small>₴</small></span></div><div class="qty" data-id="${esc(i.id)}">${qtyHTML(i.id)}</div></div></div>`;
+}
+function render(q = ''){
+  const needle = q.trim().toLowerCase();
+  let html = '', total = 0;
+  const visible = [];
+  const inSec = c => (c.type === 'banquet') === (section === 'banquet');
+  const hasBq = CATS.some(c => c.type === 'banquet' && [...ITEMS.values()].some(i => i.cat === c.id));
+  for (const c of CATS){
+    if (!inSec(c)) continue;
+    const list = [...ITEMS.values()].filter(i => i.cat === c.id && (!needle || [i.name, i.portion, i.grp, c.name, i.desc].join(' ').toLowerCase().includes(needle)));
+    if (!list.length) continue;
+    const groups = new Map();
+    list.forEach(i => { if (!groups.has(i.grp)) groups.set(i.grp, []); groups.get(i.grp).push(i); });
+    let body = '';
+    for (const [g, items] of groups)
+      body += `<div class="grp">${g ? `<div class="grp-t">${esc(g)}</div>` : ''}<div class="grid">${items.map((i, k) => itemHTML(i, k, needle)).join('')}</div></div>`;
+    total += list.length; visible.push(c);
+    html += `<section class="cat" id="${esc(c.id)}"><div class="cat-h"><div class="ico" aria-hidden="true">${esc(c.emoji)}</div><h2>${esc(c.name)}</h2><span class="cnt">${list.length} поз.</span></div>${catNote(c)}${body}</section>`;
+  }
+  const B = SET.banquet;
+  const top = section === 'banquet'
+    ? `<div class="bq-intro"><h2>🎉 Банкетне меню</h2><p>Свята, дні народження, корпоративи. Тільки передзамовлення — мінімум за ${leadH()} год.${B.minGuests ? ` Від ${B.minGuests} гостей.` : ''} Оберіть страви кнопкою «+», потім оформіть заявку — оплатити можна одразу онлайн або в кафе.</p><div class="steps3"><span>1 · Оберіть страви</span><span>2 · Дата і гості</span><span>3 · Оплата</span></div><button class="back" data-sec="main">← Повернутись до меню кафе</button></div>`
+    : (hasBq && !needle ? `<button class="bq-banner" data-sec="banquet"><span class="e">🎉</span><span><b>Банкетне меню</b><small>Передзамовлення на свята та компанії</small></span><span class="ar">→</span></button>` : '');
+  menu.innerHTML = top + html;
+  $('#empty').classList.toggle('show', !total);
+  const secChip = section === 'banquet' ? `<button class="chip sec" data-sec="main">← Меню кафе</button>` : (hasBq ? `<button class="chip sec" data-sec="banquet">🎉 Банкет</button>` : '');
+  chips.innerHTML = secChip + visible.map(c => `<button class="chip" data-id="${esc(c.id)}">${esc(c.emoji)} ${esc(c.name)}</button>`).join('');
+  observe();
+}
+
+/* reveal on scroll */
+let io;
+function observe(){
+  io && io.disconnect();
+  if (!('IntersectionObserver' in window)){ document.querySelectorAll('.cat').forEach(s => s.classList.add('in')); return spy(); }
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px', threshold:.01});
+  document.querySelectorAll('.cat').forEach(s => io.observe(s));
+  spy();
+}
+
+/* scroll spy */
+function spy(){
+  const secs = [...document.querySelectorAll('.cat')];
+  const y = innerHeight * .3; let cur = secs[0];
+  for (const s of secs) if (s.getBoundingClientRect().top <= y + 60) cur = s;
+  document.querySelectorAll('.chip[data-id]').forEach(b => {
+    const on = cur && b.dataset.id === cur.id;
+    if (on && !b.classList.contains('on')){
+      const box = chips.getBoundingClientRect(), r = b.getBoundingClientRect();
+      chips.scrollTo({left: chips.scrollLeft + r.left - box.left - box.width/2 + r.width/2, behavior:'smooth'});
+    }
+    b.classList.toggle('on', on);
+  });
+}
+let tick = false;
+addEventListener('scroll', () => {
+  if (tick) return; tick = true;
+  requestAnimationFrame(() => {
+    tick = false; spy();
+    $('#nav').classList.toggle('stuck', scrollY > innerHeight * .3);
+    $('#top').classList.toggle('show', scrollY > 700);
+  });
+}, {passive:true});
+
+function setSection(s){
+  if (s === section) return;
+  section = s;
+  try { history.replaceState(null, '', s === 'banquet' ? '#banquet' : location.pathname + location.search); } catch(e){}
+  render(qi.value);
+  scrollTo({top: $('#hero').offsetHeight - 2, behavior: 'smooth'});
+}
+chips.addEventListener('click', e => {
+  const b = e.target.closest('.chip[data-id]'); if (!b) return;
+  document.getElementById(b.dataset.id).scrollIntoView({behavior:'smooth'});
+});
+$('#top').onclick = $('#logo').onclick = e => { e.preventDefault(); scrollTo({top:0, behavior:'smooth'}); };
+
+/* search */
+const sb = $('#search'), qi = $('#q'); let t;
+qi.addEventListener('input', () => { sb.classList.toggle('has', !!qi.value); clearTimeout(t); t = setTimeout(() => render(qi.value), 150); });
+$('#clr').onclick = () => { qi.value=''; sb.classList.remove('has'); render(); qi.focus(); };
+
+/* ====== КОШИК, ОФОРМЛЕННЯ, ОПЛАТА ====== */
+let cart = {}, bq = {};
+let view = 'cart', errs = {}, LAST = null, sendState = 'idle', itemId = null, LASTB = null, bSendState = 'idle';
+let F = Object.assign({mode:'delivery',name:'',phone:'',street:'',flat:'',table:'',when:'asap',time:'',pay:'cash',comment:''}, store.get('form') || {});
+const BF = {date:'', time:'', guests:'', name:'', phone:'', comment:'', pay:'cash'};
+
+/* перевірка кошика проти меню: старі ключі, видалені/відсутні товари */
+function cleanCart(notify){
+  let removed = 0;
+  const byKey = new Map([...ITEMS.values()].filter(i => typeOf(i) !== 'banquet').map(i => [i.name + '|' + i.portion, i.id]));
+  const fix = (src, banquet) => { const out = {};
+    for (const k in src){ const id = ITEMS.has(k) ? k : byKey.get(k); const it = ITEMS.get(id); const q = Math.min(99, src[k] | 0);
+      if (!it || q <= 0 || (typeOf(it) === 'banquet') !== banquet) continue;
+      if (!it.on){ removed++; continue; }
+      out[id] = Math.min(99, (out[id] || 0) + q); }
+    return out; };
+  cart = fix(cart, false); bq = fix(bq, true);
+  store.set('cart', cart); store.set('bq', bq);
+  if (removed && notify) toast('Деяких страв зараз немає — ми прибрали їх з кошика');
+}
+
+const D = () => SET.delivery;
+const count = (c = cart) => Object.values(c).reduce((a,b) => a + b, 0);
+const sumOf = c => Object.entries(c).reduce((s,[k,q]) => s + (ITEMS.has(k) ? ITEMS.get(k).price * q : 0), 0);
+const subtotal = () => sumOf(cart);
+const closedInCart = () => Object.keys(cart).filter(k => ITEMS.has(k) && !isOpen(CAT.get(ITEMS.get(k).cat)));
+const modes = () => [CONFIG.delivery.enabled && ['delivery','🛵','Доставка'], CONFIG.pickup && ['pickup','🥡','Самовивіз'], CONFIG.dine && ['dine','🍽️','У кафе']].filter(Boolean);
+const payOpts = () => [['cash','💵','Готівкою'], ['card','💳','Карткою (термінал)'], (CONFIG.payment.mono && CONFIG.orderEndpoint || CONFIG.payment.url) && ['online','📲','Онлайн: картка, Apple Pay, Google Pay']].filter(Boolean);
+const MODE_NAME = {delivery:'Доставка', pickup:'Самовивіз', dine:'У кафе'};
+const PAY_NAME = {cash:'Готівкою', card:'Карткою (термінал)', online:'Онлайн'};
+function fixForm(){
+  if (!modes().some(m => m[0] === F.mode)) F.mode = modes()[0] ? modes()[0][0] : 'pickup';
+  if (!payOpts().some(m => m[0] === F.pay)) F.pay = 'cash';
+}
+function totals(){
+  const sub = subtotal(), d = D();
+  const fee = F.mode === 'delivery' && !(d.freeFrom && sub >= d.freeFrom) ? (d.fee || 0) : 0;
+  return {sub, fee, total: sub + fee};
+}
+const belowMin = () => F.mode === 'delivery' && D().min && subtotal() < D().min;
+function saveForm(){ store.set('form', {mode:F.mode, name:F.name, phone:F.phone, street:F.street, flat:F.flat, pay:F.pay}); }
+
+/* кнопка + / степер на картці */
+function qtyHTML(id){
+  const it = ITEMS.get(id); if (!it) return '';
+  if (!it.on) return `<span class="na">Немає</span>`;
+  if (!isOpen(CAT.get(it.cat))) return `<span class="na" title="Доступно з ${esc(CAT.get(it.cat).from)}">🔒 ${esc(CAT.get(it.cat).from)}</span>`;
+  const q = (typeOf(it) === 'banquet' ? bq : cart)[id] || 0;
+  return q ? `<div class="step"><button data-a="dec" aria-label="Менше">−</button><b>${q}</b><button data-a="inc" aria-label="Більше">+</button></div>`
+           : `<button class="add" data-a="inc" aria-label="Додати: ${esc(it.name)}">+</button>`;
+}
+function refreshQty(id){
+  document.querySelectorAll('.qty').forEach(el => { if (el.dataset.id === id) el.innerHTML = qtyHTML(id); });
+}
+function setQty(id, q){
+  const it = ITEMS.get(id); if (!it) return;
+  if (q > 0 && !canOrder(it)) return;
+  const banquet = typeOf(it) === 'banquet', c = banquet ? bq : cart;
+  q = Math.max(0, Math.min(99, q));
+  if (q) c[id] = q; else delete c[id];
+  store.set(banquet ? 'bq' : 'cart', c);
+  refreshQty(id); updateBar();
+  if ($('#sheet').classList.contains('show') && (view === 'cart' || view === 'item' || (view === 'bq' && banquet))) renderSheet();
+}
+function updateBar(){
+  const n = count(), bar = $('#bar'), open = $('#sheet').classList.contains('show');
+  const was = bar.classList.contains('show');
+  $('#bcnt').textContent = n; $('#btot').textContent = subtotal() + ' ₴';
+  bar.classList.toggle('show', n > 0 && !open);
+  document.body.classList.toggle('has-cart', n > 0);
+  if (n > 0 && was){ bar.classList.remove('bump'); void bar.offsetWidth; bar.classList.add('bump'); }
+  const nb = count(bq);
+  $('#bqtot').textContent = nb + ' поз. · ' + sumOf(bq) + ' ₴';
+  $('#bqbar').classList.toggle('show', nb > 0 && !open);
+  document.body.classList.toggle('has-bq', nb > 0);
+}
+
+/* ---- шторка ---- */
+const TITLES = {cart:'Ваш кошик', form:'Оформлення', done:'Замовлення', bq:'Банкет · ваші страви', bqform:'Банкет · оформлення', bqdone:'Банкет · заявка'};
+let lastFocus = null;
+function openSheet(v){
+  view = v || 'cart'; fixForm(); errs = {}; lastFocus = document.activeElement;
+  $('#sheet').classList.add('show'); $('#ov').classList.add('show');
+  document.body.style.overflow = 'hidden'; updateBar(); renderSheet(); $('#sbody').scrollTop = 0;
+  setTimeout(() => $('#sx').focus({preventScroll:true}), 300);
+}
+function closeSheet(){
+  $('#sheet').classList.remove('show'); $('#ov').classList.remove('show');
+  document.body.style.overflow = '';
+  if (view === 'done') view = 'cart';
+  if (view === 'bqdone') view = 'bq';
+  if (view === 'bqform' && !count(bq)) view = 'bq';
+  updateBar(); lastFocus && lastFocus.focus && lastFocus.focus({preventScroll:true});
+}
+const fld = (name, label, o = {}, src = F, pre = '') => `<div class="fld${errs[pre + name] ? ' bad' : ''}"><label for="f-${pre}${name}">${label}</label><input id="f-${pre}${name}" data-f="${pre}${name}" type="${o.type||'text'}" ${o.im ? `inputmode="${o.im}"` : ''} ${o.min ? `min="${o.min}"` : ''} autocomplete="${o.ac||'off'}" placeholder="${esc(o.ph||'')}" value="${esc(String(src[name]||''))}">${errs[pre + name] ? `<em>${errs[pre + name]}</em>` : ''}</div>`;
+
+function deliveryInfo(sub){
+  const d = D(); if (!CONFIG.delivery.enabled) return '';
+  const target = Math.max(d.min || 0, d.fee ? (d.freeFrom || 0) : 0);
+  let msg;
+  if (d.min && sub < d.min) msg = `🛵 Доставка${!d.fee || (d.freeFrom && d.freeFrom <= d.min) ? ' безкоштовна' : ''} — від ${d.min} ₴. Ще <b>${d.min - sub} ₴</b>. Самовивіз і замовлення в кафе — з будь-якої суми.`;
+  else if (d.fee && d.freeFrom && sub < d.freeFrom) msg = `Ще <b>${d.freeFrom - sub} ₴</b> до безкоштовної доставки`;
+  else if (d.fee && !d.freeFrom) msg = `🛵 Доставка — ${d.fee} ₴`;
+  else msg = '🎉 Доставка безкоштовна';
+  return `<div class="free">${msg}${target ? `<div class="bar"><i style="width:${Math.min(100, sub / target * 100)}%"></i></div>` : ''}</div>`;
+}
+function linesHTML(c){
+  return Object.keys(c).map(id => { const it = ITEMS.get(id), q = c[id]; if (!it) return '';
+    return `<div class="ln"><div class="info"><span class="nm">${esc(it.name)}</span>${it.portion ? `<span class="pt">${esc(it.portion)}</span>` : ''}</div><div class="qty" data-id="${esc(id)}">${qtyHTML(id)}</div><div class="ln-p">${it.price * q} ₴</div></div>`; }).join('');
+}
+function cartView(){
+  const ids = Object.keys(cart);
+  if (!ids.length) return {body:`<div class="empty-c"><b>🏺</b><p>Кошик порожній — оберіть щось смачненьке</p><button class="btn pri" data-go="close">До меню</button></div>`, foot:''};
+  const sub = subtotal(), closed = closedInCart();
+  const warn = closed.length ? `<div class="note warn">🔒 Сніданки вже недоступні (${closed.map(id => esc(ITEMS.get(id).name)).join(', ')}). Приберіть їх, щоб оформити замовлення.</div>` : '';
+  return {body: linesHTML(cart) + deliveryInfo(sub) + warn, foot:`<div class="tot"><span>Страви</span><b>${sub} ₴</b></div><button class="btn pri" data-go="form" ${closed.length ? 'disabled' : ''}>Оформити замовлення</button>`};
+}
+
+function formView(){
+  const t = totals(), d = D();
+  const segMode = `<div class="seg">${modes().map(([k,ic,tt]) => `<button type="button" class="${F.mode===k?'on':''}" data-set="mode" data-v="${k}"><span>${ic}</span>${tt}</button>`).join('')}</div>`;
+  let where = '';
+  if (F.mode === 'delivery'){
+    const dn = (d.fee ? `Доставка ${d.fee} ₴${d.freeFrom ? `, безкоштовно від ${d.freeFrom} ₴` : ''}` : 'Доставка безкоштовна') + (d.min ? `. Мінімальне замовлення — ${d.min} ₴` : '') + '.';
+    where = `${fld('street','Вулиця та будинок',{ph:'вул. Соборна, 12',ac:'street-address'})}${fld('flat','Квартира, під\'їзд, поверх',{ph:'кв. 5, 2 під\'їзд'})}<div class="note">${dn}</div>`
+      + (belowMin() ? `<div class="note warn">Доставка доступна від ${d.min} ₴ — додайте ще ${d.min - t.sub} ₴ або оберіть самовивіз чи «У кафе».</div>` : '');
+  }
+  else if (F.mode === 'pickup') where = `<div class="note">Заберіть замовлення в кафе — ми приготуємо його до вказаного часу.</div>`;
+  else where = fld('table','Номер столика',{ph:'напр. 7',im:'numeric'});
+  const when = `<div class="seg"><button type="button" class="${F.when==='asap'?'on':''}" data-set="when" data-v="asap"><span>⚡</span>Якнайшвидше</button><button type="button" class="${F.when==='time'?'on':''}" data-set="when" data-v="time"><span>🕒</span>На певний час</button></div>${F.when==='time' ? fld('time','Час',{type:'time'}) : ''}`;
+  const pay = `<div class="opts">${payOpts().map(([k,ic,tt]) => `<button type="button" class="opt ${F.pay===k?'on':''}" data-set="pay" data-v="${k}"><span class="ic">${ic}</span>${tt}<span class="dot"></span></button>`).join('')}</div>`;
+  const closed = closedInCart();
+  const sum = `<div class="sum"><div><span>Страви (${count()})</span><span>${t.sub} ₴</span></div>${F.mode==='delivery' ? `<div class="${t.fee?'':'g'}"><span>Доставка</span><span>${t.fee ? t.fee + ' ₴' : 'безкоштовно'}</span></div>` : ''}<div class="t"><span>Разом</span><span>${t.total} ₴</span></div></div>${errs.min ? `<div class="note warn">${errs.min}</div>` : ''}${closed.length ? `<div class="note warn">🔒 Сніданки вже недоступні — поверніться до кошика й приберіть їх.</div>` : ''}`;
+  const blocked = sendState === 'sending' || belowMin() || closed.length;
+  return {
+    body: `<div class="sec-t">Як отримаєте</div>${segMode}
+      <div class="sec-t">Контакти</div>${fld('name','Ім\'я',{ac:'name',ph:'Як до вас звертатись'})}${fld('phone','Телефон',{type:'tel',im:'tel',ac:'tel',ph:'0XX XXX XX XX'})}
+      <div class="sec-t">${F.mode==='dine' ? 'Столик' : F.mode==='delivery' ? 'Адреса' : 'Самовивіз'}</div>${where}
+      <div class="sec-t">Коли</div>${when}
+      <div class="sec-t">Оплата</div>${pay}
+      <div class="fld"><label for="f-comment">Коментар до замовлення</label><textarea id="f-comment" data-f="comment" rows="2" placeholder="Без цибулі, подзвоніть на під'їзді…">${esc(F.comment)}</textarea></div>${sum}`,
+    foot: `<button class="btn pri" data-go="submit" ${blocked ? 'disabled' : ''}>Підтвердити · ${t.total} ₴</button><button class="btn ter" data-go="cart">← Назад до кошика</button>`
+  };
+}
+
+const payUrl = o => o.payUrl || CONFIG.payment.url.replace('{amount}', CONFIG.payment.amountInKopecks ? o.total * 100 : o.total).replace('{order}', encodeURIComponent('Замовлення ' + o.no));
+const hasChannel = () => CONFIG.orderEndpoint || CONFIG.telegram || CONFIG.whatsapp;
+function orderText(o){
+  const L = [`🧾 Замовлення №${o.no} — НОРМА`, `Тип: ${MODE_NAME[o.mode]}`, `Ім'я: ${o.name}`, `Тел: ${o.phone}`];
+  if (o.mode === 'delivery') L.push(`Адреса: ${o.street}${o.flat ? ', ' + o.flat : ''}`);
+  if (o.mode === 'dine') L.push(`Столик: ${o.table}`);
+  L.push(`Час: ${o.when === 'time' ? o.time : 'якнайшвидше'}`, `Оплата: ${PAY_NAME[o.pay]}`, '———');
+  o.items.forEach(i => L.push(`${i.qty}× ${i.name}${i.portion ? ' (' + i.portion + ')' : ''} — ${i.price * i.qty} ₴`));
+  L.push('———', `Страви: ${o.sub} ₴`);
+  if (o.mode === 'delivery') L.push(`Доставка: ${o.fee ? o.fee + ' ₴' : 'безкоштовно'}`);
+  L.push(`Разом: ${o.total} ₴`);
+  if (o.comment) L.push(`Коментар: ${o.comment}`);
+  return L.join('\n');
+}
+function manualActs(text){
+  let acts = '';
+  const txt = encodeURIComponent(text);
+  if (CONFIG.telegram) acts += `<a class="btn pri" href="https://t.me/${esc(CONFIG.telegram)}?text=${txt}" target="_blank" rel="noopener">✈️ Надіслати в Telegram</a>`;
+  if (CONFIG.whatsapp) acts += `<a class="btn ter" href="https://wa.me/${esc(CONFIG.whatsapp)}?text=${txt}" target="_blank" rel="noopener">💬 Надіслати в WhatsApp</a>`;
+  return acts;
+}
+function doneHead(st){
+  return `<div class="ok">${st === 'sending' ? '<span class="spin" style="border-top-color:var(--brick);border-color:rgba(74,26,18,.25);width:30px;height:30px"></span>' : '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}</div>`;
+}
+function doneView(){
+  const o = LAST;
+  const items = o.items.map(i => `<div class="li"><span>${i.qty}× ${esc(i.name)}${i.portion ? ` <small style="color:var(--muted)">${esc(i.portion)}</small>` : ''}</span><span>${i.price * i.qty} ₴</span></div>`).join('');
+  const sent = sendState === 'sent', sending = sendState === 'sending', failed = sendState === 'failed';
+  let head, lead;
+  if (sent){ head = 'Замовлення прийнято!'; lead = o.pay === 'online' ? 'Переходимо до оплати. Якщо не відкрилось — натисніть «Сплатити» нижче. Готувати почнемо після оплати.' : 'Ми вже отримали його і почали готувати. Дякуємо, що обрали НОРМУ!'; }
+  else if (sending){ head = 'Відправляємо…'; lead = 'Одну секунду.'; }
+  else if (failed){ head = 'Не вдалося відправити'; lead = 'Нічого страшного — надішліть замовлення нам вручну кнопками нижче.'; }
+  else { head = 'Майже готово!'; lead = 'Надішліть замовлення нам — оберіть зручний спосіб нижче.'; }
+  let acts = '';
+  if (o.pay === 'online' && (o.payUrl || CONFIG.payment.url)) acts += `<a class="btn pri" href="${esc(payUrl(o))}" target="_blank" rel="noopener">📲 Сплатити ${o.total} ₴ онлайн</a>`;
+  if (!sent && !sending){
+    if (CONFIG.orderEndpoint && failed) acts += `<button class="btn sec" data-go="retry">🔄 Спробувати ще раз</button>`;
+    acts += manualActs(orderText(o));
+    acts += `<button class="btn ter" data-go="copy">📋 Скопіювати замовлення</button>`;
+  }
+  if (CONFIG.phone) acts += `<a class="btn ter" href="tel:${esc(CONFIG.phone)}">📞 Подзвонити в кафе</a>`;
+  const test = !hasChannel() ? `<div class="note">Тестовий режим: прийом замовлень ще не підключено — замовлення нікуди не надсилається.</div>` : '';
+  return {
+    body: `<div class="done">${doneHead(sendState)}<h4>${head}</h4><p>${lead}</p>
+      <div class="ocard"><div class="no"><span>№ ${o.no}</span><span>${MODE_NAME[o.mode]}</span></div>${items}<hr><div class="li"><span>Разом</span><span>${o.total} ₴</span></div></div>${test}<div class="acts">${acts}</div></div>`,
+    foot: `<button class="btn ter" data-go="close">Закрити</button>`
+  };
+}
+
+/* ---- картка товару ---- */
+function itemView(){
+  const it = ITEMS.get(itemId);
+  if (!it) return {body:`<div class="empty-c"><b>🏺</b><p>Цієї страви вже немає в меню</p></div>`, foot:`<button class="btn ter" data-go="close">Закрити</button>`};
+  const c = CAT.get(it.cat) || {}, ph = photoUrl(it.photo), banquet = typeOf(it) === 'banquet';
+  const q = (banquet ? bq : cart)[it.id] || 0;
+  let note = '';
+  if (!it.on) note = `<div class="note warn">Зараз немає в наявності.</div>`;
+  else if (!isOpen(c)) note = `<div class="note warn">🔒 Доступно з ${esc(c.from)} до ${esc(c.to)}.</div>`;
+  else if (banquet) note = `<div class="note">🎉 Банкетне меню — тільки передзамовлення (мінімум за ${leadH()} год.).</div>`;
+  const body = `<div class="iv">${ph ? `<img class="iv-img" src="${esc(ph)}" alt="${esc(it.name)}">` : `<div class="iv-ph" aria-hidden="true">${esc(c.emoji || '🏺')}</div>`}
+    <h4>${esc(it.name)}${it.badge ? ` <i class="bdg">${esc(it.badge)}</i>` : ''}</h4>
+    ${it.portion ? `<span class="pt">${esc(it.portion)}</span>` : ''}
+    ${it.desc ? `<p class="dsc">${esc(it.desc)}</p>` : ''}${note}</div>`;
+  const go = q ? `<button class="btn sec" data-go="${banquet ? 'bq' : 'cart'}">${banquet ? '🎉 До заявки на банкет' : '🛒 Перейти до кошика'}</button>` : '';
+  return {body, foot: `<div class="iv-row"><div class="pr${it.old ? ' promo' : ''}">${it.old ? `<s>${it.old} ₴</s>` : ''}<span>${it.price}<small>₴</small></span></div><div class="qty" data-id="${esc(it.id)}">${qtyHTML(it.id)}</div></div>${go}`};
+}
+function openItem(id){ itemId = id; openSheet('item'); }
+
+/* ---- банкет: передзамовлення (як звичайне замовлення: кошик → оформлення → оплата) ---- */
+function bqView(){
+  const ids = Object.keys(bq), B = SET.banquet;
+  if (!ids.length) return {body:`<div class="empty-c"><b>🎉</b><p>Оберіть страви в розділі «Банкетне меню» — кнопкою «+» біля страви.</p><button class="btn pri" data-go="tobq">До банкетного меню</button></div>`, foot:''};
+  const sub = sumOf(bq);
+  return {body: linesHTML(bq) + `<div class="free">🎉 Передзамовлення — мінімум за ${leadH()} год.${B.minGuests ? ` Від ${B.minGuests} гостей.` : ''} Дату, кількість гостей і оплату оберете на наступному кроці.</div>`,
+    foot: `<div class="tot"><span>Страви</span><b>${sub} ₴</b></div><button class="btn pri" data-go="bqform">Оформити передзамовлення</button><button class="btn ter" data-go="tobq">← Додати ще страви</button>`};
+}
+function bqFormView(){
+  const B = SET.banquet, sub = sumOf(bq);
+  if (!BF.name) BF.name = F.name; if (!BF.phone) BF.phone = F.phone;
+  if (!payOpts().some(m => m[0] === BF.pay)) BF.pay = 'cash';
+  const minDT = minBqDT(), minD = minDT.slice(0, 10);
+  const pay = `<div class="opts">${payOpts().map(([k,ic,tt]) => `<button type="button" class="opt ${BF.pay===k?'on':''}" data-set="bpay" data-v="${k}"><span class="ic">${ic}</span>${k === 'cash' ? 'Готівкою в кафе' : k === 'card' ? 'Карткою в кафе (термінал)' : tt}<span class="dot"></span></button>`).join('')}</div>`;
+  const g = parseInt(BF.guests, 10);
+  const sum = `<div class="sum"><div><span>Страви (${count(bq)})</span><span>${sub} ₴</span></div>${BF.date ? `<div><span>Дата</span><span>${BF.date.split('-').reverse().join('.')}${BF.time ? ' о ' + esc(BF.time) : ''}</span></div>` : ''}${g > 0 ? `<div><span>Гостей</span><span>${g}${g ? ` · ≈${Math.round(sub / g)} ₴/особу` : ''}</span></div>` : ''}<div class="t"><span>Разом</span><span>${sub} ₴</span></div></div>`;
+  return {
+    body: `<div class="sec-t">Коли і скільки гостей</div><div class="two">${fld('date','Дата',{type:'date',min:minD},BF,'b_')}${fld('time','Час',{type:'time'},BF,'b_')}</div>`
+      + fld('guests','Кількість гостей',{type:'number',im:'numeric',ph:B.minGuests ? 'від ' + B.minGuests : 'напр. 15'},BF,'b_')
+      + `<div class="note">Найближчий можливий час — ${fmtDT(minDT)} (мінімум за ${leadH()} год.).</div>`
+      + `<div class="sec-t">Контакти</div>${fld('name','Ім\'я',{ac:'name',ph:'Як до вас звертатись'},BF,'b_')}${fld('phone','Телефон',{type:'tel',im:'tel',ac:'tel',ph:'0XX XXX XX XX'},BF,'b_')}`
+      + `<div class="sec-t">Оплата</div>${pay}`
+      + (BF.pay === 'online' ? `<div class="note">Після підтвердження відкриється сторінка оплати monobank (картка, Apple Pay, Google Pay).</div>` : `<div class="note">Ми зателефонуємо, щоб підтвердити банкет. Оплата — в кафе.</div>`)
+      + `<div class="fld"><label for="f-b_comment">Побажання</label><textarea id="f-b_comment" data-f="b_comment" rows="2" placeholder="Привід, оформлення зали, алергії…">${esc(BF.comment)}</textarea></div>${sum}`,
+    foot: `<button class="btn pri" data-go="bqsend" ${bSendState === 'sending' ? 'disabled' : ''}>${BF.pay === 'online' ? 'Перейти до оплати' : 'Підтвердити'} · ${sub} ₴</button><button class="btn ter" data-go="bq">← Назад до заявки</button>`
+  };
+}
+function bqText(p){
+  const L = [`🎉 БАНКЕТ — передзамовлення №${p.no} — НОРМА`, `Дата: ${p.date.split('-').reverse().join('.')} о ${p.time}`, `Гостей: ${p.guests}`, `Ім'я: ${p.name}`, `Тел: ${p.phone}`, '———'];
+  p.items.forEach(i => L.push(`${i.qty}× ${i.name}${i.portion ? ' (' + i.portion + ')' : ''} — ${i.price * i.qty} ₴`));
+  L.push('———', `Разом: ${p.total} ₴`, `Оплата: ${PAY_NAME[p.pay] || PAY_NAME.cash}`);
+  if (p.comment) L.push(`Побажання: ${p.comment}`);
+  return L.join('\n');
+}
+function bqDoneView(){
+  const p = LASTB, sent = bSendState === 'sent', sending = bSendState === 'sending', failed = bSendState === 'failed';
+  const head = sent ? 'Заявку прийнято!' : sending ? 'Відправляємо…' : failed ? 'Не вдалося відправити' : 'Майже готово!';
+  const lead = sent ? (p.pay === 'online' ? 'Переходимо до оплати. Якщо сторінка не відкрилась — натисніть «Сплатити» нижче. Ми зателефонуємо, щоб підтвердити деталі.' : 'Ми зателефонуємо найближчим часом, щоб підтвердити банкет.') : sending ? 'Одну секунду.' : 'Надішліть заявку нам вручну або зателефонуйте.';
+  let acts = '';
+  const pu = p.payUrl || (!API && CONFIG.payment.url ? payUrl({...p, no: 'Банкет ' + p.no}) : '');
+  if (p.pay === 'online' && pu) acts += `<a class="btn pri" href="${esc(pu)}" target="_blank" rel="noopener">📲 Сплатити ${p.total} ₴ онлайн</a>`;
+  if (!sent && !sending){
+    if (API && failed) acts += `<button class="btn sec" data-go="bqretry">🔄 Спробувати ще раз</button>`;
+    acts += manualActs(bqText(p)) + `<button class="btn ter" data-go="bqcopy">📋 Скопіювати заявку</button>`;
+  }
+  if (CONFIG.phone) acts += `<a class="btn ter" href="tel:${esc(CONFIG.phone)}">📞 Подзвонити в кафе</a>`;
+  const items = p.items.map(i => `<div class="li"><span>${i.qty}× ${esc(i.name)}</span><span>${i.price * i.qty} ₴</span></div>`).join('');
+  return {body:`<div class="done">${doneHead(bSendState)}<h4>${head}</h4><p>${lead}</p>
+    <div class="ocard"><div class="no"><span>№ ${p.no}</span><span>${p.date.split('-').reverse().join('.')} · ${p.time}</span></div><div class="li"><span>Гостей</span><span>${p.guests}</span></div><div class="li"><span>Оплата</span><span>${PAY_NAME[p.pay] || PAY_NAME.cash}</span></div><hr>${items}<hr><div class="li"><span>Разом</span><span>${p.total} ₴</span></div></div>
+    ${!API ? '<div class="note">Тестовий режим: прийом заявок ще не підключено.</div>' : ''}<div class="acts">${acts}</div></div>`, foot:`<button class="btn ter" data-go="close">Закрити</button>`};
+}
+function bqValidate(){
+  errs = {}; const B = SET.banquet, minDT = minBqDT(), minD = minDT.slice(0, 10);
+  if (!BF.date) errs.b_date = 'Оберіть дату'; else if (BF.date < minD) errs.b_date = `Не раніше ${minD.split('-').reverse().join('.')}`;
+  if (!BF.time) errs.b_time = 'Оберіть час';
+  else if (BF.date && !errs.b_date && `${BF.date}T${BF.time}` < minDT) errs.b_time = `Не раніше ${fmtDT(minDT)}`;
+  const g = parseInt(BF.guests, 10);
+  if (!g || g < 1) errs.b_guests = 'Вкажіть кількість гостей'; else if (B.minGuests && g < B.minGuests) errs.b_guests = `Мінімум ${B.minGuests} гостей`;
+  if (!BF.name.trim()) errs.b_name = 'Вкажіть ім\'я';
+  if (!normPhone(BF.phone)) errs.b_phone = 'Номер у форматі 0XX XXX XX XX';
+  return !Object.keys(errs).length;
+}
+async function sendPreorder(p){
+  bSendState = 'sending'; renderSheet();
+  try{
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 12000);
+    const r = await fetch(API + '/preorder', {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(p), signal: ctl.signal});
+    clearTimeout(tm);
+    if (r.ok){
+      bSendState = 'sent';
+      if (p.pay === 'online'){ const j = await r.json().catch(() => ({})); if (j.payUrl){ p.payUrl = j.payUrl; setTimeout(() => { location.href = j.payUrl; }, 900); } else bSendState = 'failed'; }
+    }
+    else {
+      const j = await r.json().catch(() => ({}));
+      if (['unavailable', 'date', 'early', 'guests'].includes(j.error)){
+        bq = {...p.snapshot}; store.set('bq', bq);
+        if (j.error === 'unavailable'){ const n = new Set(j.items || []); for (const id in bq){ const it = ITEMS.get(id); if (it && n.has(it.name)){ it.on = 0; delete bq[id]; } } store.set('bq', bq); render(qi.value); }
+        if (j.error === 'date' || j.error === 'early') errs = {b_time: j.min ? `Не раніше ${fmtDT(j.min)}` : 'Перевірте дату й час'};
+        if (j.error === 'guests') errs = {b_guests: `Мінімум ${j.min} гостей`};
+        bSendState = 'idle'; view = j.error === 'unavailable' ? 'bq' : 'bqform'; updateBar(); renderSheet();
+        if (j.error === 'unavailable') toast('Деяких страв немає — прибрали їх із заявки');
+        return;
+      }
+      bSendState = 'failed';
+    }
+  }catch(e){ bSendState = 'failed'; }
+  if (view === 'bqdone') renderSheet();
+}
+function bqSubmit(){
+  if (!bqValidate()){ renderSheet(); const el = document.querySelector('.fld.bad input'); el && el.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+  const d = new Date(), pd = n => String(n).padStart(2, '0');
+  const items = Object.entries(bq).map(([k,q]) => { const it = ITEMS.get(k); return {id: k, name: it.name, portion: it.portion, qty: q, price: it.price}; });
+  LASTB = {no: 'B' + pd(d.getDate()) + pd(d.getHours()) + pd(d.getMinutes()) + '-' + Math.floor(10 + Math.random() * 90), date: BF.date, time: BF.time, guests: parseInt(BF.guests, 10),
+    name: BF.name.trim(), phone: normPhone(BF.phone), pay: BF.pay, comment: BF.comment.trim(), items, total: items.reduce((s, i) => s + i.price * i.qty, 0)};
+  F.name = F.name || LASTB.name; F.phone = F.phone || BF.phone; saveForm();
+  Object.defineProperty(LASTB, 'snapshot', {value: {...bq}, enumerable: false});
+  bq = {}; store.set('bq', bq);
+  document.querySelectorAll('.qty').forEach(el => { if (el.dataset.id) el.innerHTML = qtyHTML(el.dataset.id); });
+  view = 'bqdone'; bSendState = 'idle'; updateBar();
+  if (API) sendPreorder(LASTB); else renderSheet();
+  $('#sbody').scrollTop = 0;
+}
+
+function renderSheet(){
+  const v = {cart: cartView, form: formView, done: doneView, item: itemView, bq: bqView, bqform: bqFormView, bqdone: bqDoneView}[view]();
+  $('#stitle').textContent = view === 'item' ? (CAT.get((ITEMS.get(itemId) || {}).cat) || {name:'Страва'}).name : TITLES[view];
+  $('#sbody').innerHTML = v.body; $('#sfoot').innerHTML = v.foot; $('#sfoot').style.display = v.foot ? '' : 'none';
+  const idx = {cart:0, form:1, done:2, bq:0, bqform:1, bqdone:2}[view];
+  $('#steps').classList.toggle('hide', idx === undefined);
+  document.querySelectorAll('#steps i').forEach((e,i) => { e.className = i < idx ? 'on' : i === idx ? 'cur' : ''; });
+}
+
+function normPhone(s){
+  const d = String(s).replace(/\D/g, '');
+  if (/^380\d{9}$/.test(d)) return '+' + d;
+  if (/^0\d{9}$/.test(d)) return '+38' + d;
+  return null;
+}
+function validate(){
+  errs = {}; const {sub} = totals(), d = D();
+  if (!F.name.trim()) errs.name = 'Вкажіть ім\'я';
+  if (!normPhone(F.phone)) errs.phone = 'Номер у форматі 0XX XXX XX XX';
+  if (F.mode === 'delivery'){ if (F.street.trim().length < 3) errs.street = 'Вкажіть вулицю та будинок'; if (d.min && sub < d.min) errs.min = `Доставка доступна від ${d.min} ₴. Додайте ще страв або оберіть самовивіз.`; }
+  if (F.mode === 'dine' && !String(F.table).trim()) errs.table = 'Вкажіть номер столика';
+  if (F.when === 'time' && !F.time) errs.time = 'Оберіть час';
+  if (closedInCart().length) errs.min = 'Сніданки вже недоступні — приберіть їх з кошика.';
+  return !Object.keys(errs).length;
+}
+function buildOrder(){
+  const t = totals(), d = new Date(), p = n => String(n).padStart(2, '0');
+  const o = {
+    no: p(d.getDate()) + p(d.getHours()) + p(d.getMinutes()) + '-' + Math.floor(10 + Math.random() * 90),
+    createdAt: d.toISOString(), mode: F.mode, name: F.name.trim(), phone: normPhone(F.phone),
+    street: F.mode === 'delivery' ? F.street.trim() : '', flat: F.mode === 'delivery' ? F.flat.trim() : '',
+    table: F.mode === 'dine' ? String(F.table).trim() : '', when: F.when, time: F.when === 'time' ? F.time : '',
+    pay: F.pay, comment: F.comment.trim(), sub: t.sub, fee: t.fee, total: t.total,
+    items: Object.entries(cart).map(([k,q]) => { const it = ITEMS.get(k); return {id: k, name: it.name, portion: it.portion, qty: q, price: it.price}; })
+  };
+  o.text = orderText(o);
+  Object.defineProperty(o, 'snapshot', {value: {...cart}, enumerable: false});
+  return o;
+}
+/* сервер відхилив: щось закінчилось / сніданки завершились / мінімум доставки змінився */
+function rejected(o, j){
+  cart = {...o.snapshot};
+  const names = new Set(j.items || []);
+  for (const id in cart){ const it = ITEMS.get(id); if (it && names.has(it.name)){ if (j.error === 'unavailable') it.on = 0; delete cart[id]; } }
+  if (j.error === 'min' && j.min) SET.delivery.min = j.min;
+  store.set('cart', cart); render(qi.value); updateBar();
+  sendState = 'idle'; view = j.error === 'min' ? 'form' : 'cart'; errs = {};
+  if (j.error === 'min') errs.min = `Доставка доступна від ${j.min} ₴. Додайте ще страв або оберіть самовивіз.`;
+  renderSheet();
+  toast(j.error === 'unavailable' ? 'Деяких страв щойно не стало — прибрали їх з кошика' : j.error === 'breakfast' ? 'Сніданки вже завершились — прибрали їх з кошика' : 'Перевірте умови доставки');
+}
+async function sendToServer(o){
+  sendState = 'sending'; renderSheet();
+  try{
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 12000);
+    const r = await fetch(API + '/order', {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(o), signal: ctl.signal});
+    clearTimeout(tm);
+    if (!r.ok){ const j = await r.clone().json().catch(() => ({})); if (['unavailable','breakfast','min'].includes(j.error)) return rejected(o, j); }
+    sendState = r.ok ? 'sent' : 'failed';
+    if (r.ok && o.pay === 'online'){ const j = await r.json().catch(() => ({})); if (j.payUrl){ o.payUrl = j.payUrl; setTimeout(() => { location.href = j.payUrl; }, 900); } else sendState = 'failed'; }
+  }catch(e){ sendState = 'failed'; }
+  if (view === 'done') renderSheet();
+}
+function submit(){
+  if (!validate()){ renderSheet(); const el = document.querySelector('.fld.bad input, .note.warn'); el && el.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+  saveForm(); LAST = buildOrder();
+  cart = {}; store.set('cart', cart);
+  document.querySelectorAll('.qty').forEach(el => { if (el.dataset.id) el.innerHTML = qtyHTML(el.dataset.id); });
+  view = 'done'; sendState = 'idle'; updateBar();
+  if (CONFIG.orderEndpoint) sendToServer(LAST); else renderSheet();
+  $('#sbody').scrollTop = 0;
+}
+function toast(t){ const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('show'), 2600); }
+function copyText(t){
+  const ok = () => toast('Скопійовано ✓');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, fallback); else fallback();
+  function fallback(){ const a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = 0; document.body.appendChild(a); a.select(); try{ document.execCommand('copy'); ok(); }catch(e){} a.remove(); }
+}
+
+document.addEventListener('click', e => {
+  const q = e.target.closest('.qty [data-a]');
+  if (q){ const id = q.closest('.qty').dataset.id; const it = ITEMS.get(id); const c = it && typeOf(it) === 'banquet' ? bq : cart; setQty(id, (c[id] || 0) + (q.dataset.a === 'inc' ? 1 : -1)); return; }
+  const sc = e.target.closest('[data-sec]');
+  if (sc){ setSection(sc.dataset.sec); return; }
+  const s = e.target.closest('[data-set]');
+  if (s){ if (s.dataset.set === 'bpay'){ BF.pay = s.dataset.v; renderSheet(); return; } F[s.dataset.set] = s.dataset.v; fixForm(); errs = {}; saveForm(); renderSheet(); return; }
+  const g = e.target.closest('[data-go]');
+  if (g){
+    const a = g.dataset.go;
+    if (a === 'close') closeSheet();
+    else if (a === 'cart' || a === 'form' || a === 'bq' || a === 'bqform'){ if (!$('#sheet').classList.contains('show')) return openSheet(a); view = a; errs = {}; renderSheet(); $('#sbody').scrollTop = 0; }
+    else if (a === 'submit') submit();
+    else if (a === 'retry') sendToServer(LAST);
+    else if (a === 'copy') copyText(LAST.text);
+    else if (a === 'bqsend') bqSubmit();
+    else if (a === 'bqretry') sendPreorder(LASTB);
+    else if (a === 'bqcopy') copyText(bqText(LASTB));
+    else if (a === 'tobq'){ closeSheet(); if (section !== 'banquet') setSection('banquet'); else scrollTo({top: $('#hero').offsetHeight - 2, behavior:'smooth'}); }
+    return;
+  }
+  const o = e.target.closest('[data-open]');
+  if (o && !e.target.closest('.qty')) openItem(o.dataset.open);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('#sheet').classList.contains('show')) return closeSheet();
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-open]')){ e.preventDefault(); openItem(e.target.dataset.open); }
+});
+document.addEventListener('input', e => {
+  const f = e.target.dataset && e.target.dataset.f; if (!f) return;
+  if (f.startsWith('b_')) BF[f.slice(2)] = e.target.value; else F[f] = e.target.value;
+  if (errs[f]){ delete errs[f]; e.target.closest('.fld').classList.remove('bad'); const m = e.target.closest('.fld').querySelector('em'); m && m.remove(); }
+  if (!f.startsWith('b_')) saveForm();
+});
+$('#bar').onclick = () => openSheet('cart');
+$('#bqbar').onclick = () => openSheet('bq');
+$('#sx').onclick = $('#ov').onclick = closeSheet;
+
+/* ====== СТАРТ: меню з кешу/вбудоване → оновлення з сервера ====== */
+{
+  const cached = store.get('menu');
+  applyMenu(cached && Array.isArray(cached.cats) && cached.cats.length ? cached : EMBED);
+  const sc = store.get('cart'), sq = store.get('bq');
+  if (sc && typeof sc === 'object') cart = sc;
+  if (sq && typeof sq === 'object') bq = sq;
+  cleanCart(false);
+}
+fixForm(); updateBar(); render();
+
+let lastMenu = '', lastFetch = 0;
+async function loadServerMenu(){
+  if (!API || !CONFIG.menuFromServer) return;
+  lastFetch = Date.now();
+  try{
+    const r = await fetch(API + '/menu', {cache: 'no-cache'});
+    if (!r.ok) return;
+    const m = await r.json();
+    if (!Array.isArray(m.cats) || !m.cats.length || !Array.isArray(m.items)) return;
+    const sig = JSON.stringify(m); if (sig === lastMenu) return; lastMenu = sig;
+    store.set('menu', m); applyMenu(m); cleanCart(true);
+    render(qi.value); updateBar();
+    if ($('#sheet').classList.contains('show') && !['form', 'bqform'].includes(view)) renderSheet();
+  }catch(e){ /* офлайн — лишаємо вбудоване/кешоване меню */ }
+}
+loadServerMenu();
+addEventListener('hashchange', () => setSection(/banquet/.test(location.hash) ? 'banquet' : 'main'));
+document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - lastFetch > 60000) loadServerMenu(); });
+/* сніданки: щохвилини перевіряємо, чи не змінився статус (9:00 / 12:00) */
+let openSig = CATS.map(isOpen).join();
+setInterval(() => { const s = CATS.map(isOpen).join(); if (s !== openSig){ openSig = s; render(qi.value); if ($('#sheet').classList.contains('show') && view !== 'bq') renderSheet(); } }, 30000);
+</script>
+</body>
+</html>
